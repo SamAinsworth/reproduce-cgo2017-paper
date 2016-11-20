@@ -85,6 +85,7 @@ def experiment(i):
               program_uoa  - program UID or alias
               (deps)       - pre-resolved deps
               (env)        - compile/run environment
+              (cmd)        - if !='', use as cmd_key
               (quiet)      - if 'yes', do not ask to press enter
               (title)      - print title (and record to log)
               (results)    - dict with results
@@ -134,6 +135,8 @@ def experiment(i):
     key=i.get('key','')
     results=i.get('results',{})
 
+    cmd=i.get('cmd','')
+
     # Compile program
     ck.out('')
     ck.out('Compiling program ...')
@@ -150,7 +153,7 @@ def experiment(i):
 
     # Run program N times (to analyze variation)
     times=[]
-    for x in range(0,3):
+    for x in range(0,1):
         ck.out(line1)
         ck.out('Running program ('+str(x+1)+' out of 3) ...')
         ck.out('')
@@ -158,6 +161,7 @@ def experiment(i):
         r=ck.access({'action':'run',
                      'module_uoa':cfg['module_deps']['program'],
                      'data_uoa':puoa,
+                     'cmd_key':cmd,
                      'env':env,
                      'out':oo})
         if r['return']>0: return r
@@ -312,7 +316,79 @@ def run(i):
     if rx['return']>0: return rx
 
 
+
+
+
+
+
+
+    # Reproducing Figure 2 ###################################################################################
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q,
+                  'title':'Reproducing experiments for Figure 2',
+                  'subtitle':'Validating nas-is no prefetching:',
+                  'key':'figure-2-nas-is-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'offset-64-nostride'},
+                  'deps':deps,
+                  'quiet':q,
+                  'title':'',
+                  'subtitle':'Validating nas-is intuitive:',
+                  'key':'figure-2-nas-is-offset-64-nostride', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2},
+                  'deps':deps,
+                  'quiet':q,
+                  'title':'',
+                  'subtitle':'Validating nas-is small:',
+                  'key':'figure-2-nas-is-offset-2', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2048},
+                  'deps':deps,
+                  'quiet':q,
+                  'title':'',
+                  'subtitle':'Validating nas-is big:',
+                  'key':'figure-2-nas-is-offset-2048', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2048},
+                  'deps':deps,
+                  'quiet':q,
+                  'title':'',
+                  'subtitle':'Validating nas-is best:',
+                  'key':'figure-2-nas-is-offset-64', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+
+
+
     # Reproducing Figure 4 ###################################################################################
+
+
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
                   'program_uoa':cfg['programs_uoa']['nas-cg'],
                   'env':{'CK_COMPILE_TYPE':'no'},
@@ -503,14 +579,16 @@ def run(i):
 
 
 
+
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
                   'program_uoa':cfg['programs_uoa']['graph500'],
                   'env':{'CK_COMPILE_TYPE':'no'},
+                  'cmd':'s16e10',
                   'deps':deps,
                   'quiet':q,
                   'title':'',
                   'subtitle':'Validating graph500 no prefetching:',
-                  'key':'figure-4-graph500-no-prefetching', 'results':results})
+                  'key':'figure-4-graph500-s16-no-prefetching', 'results':results})
     if r['return']>0:
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
@@ -518,11 +596,12 @@ def run(i):
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
                   'program_uoa':cfg['programs_uoa']['graph500'],
                   'env':{'CK_COMPILE_TYPE':'auto'},
+                  'cmd':'s16e10',
                   'deps':deps,
                   'quiet':q,
                   'title':'',
                   'subtitle':'Validating graph500 auto prefetching:',
-                  'key':'figure-4-graph500-auto', 'results':results})
+                  'key':'figure-4-graph500-s16-auto', 'results':results})
     if r['return']>0:
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
@@ -530,11 +609,12 @@ def run(i):
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
                   'program_uoa':cfg['programs_uoa']['graph500'],
                   'env':{'CK_COMPILE_TYPE':'man-inorder'},
+                  'cmd':'s16e10',
                   'deps':deps,
                   'quiet':q,
                   'title':'',
                   'subtitle':'Validating graph500 manual in order prefetching:',
-                  'key':'figure-4-graph500-man-inorder', 'results':results})
+                  'key':'figure-4-graph500-s16-man-inorder', 'results':results})
     if r['return']>0:
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
@@ -542,80 +622,69 @@ def run(i):
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
                   'program_uoa':cfg['programs_uoa']['graph500'],
                   'env':{'CK_COMPILE_TYPE':'man-outoforder'},
+                  'cmd':'s16e10',
                   'deps':deps,
                   'quiet':q,
                   'title':'',
                   'subtitle':'Validating graph500 manual out of order prefetching:',
-                  'key':'figure-4-graph500-man-outoforder', 'results':results})
+                  'key':'figure-4-graph500-s16-man-outoforder', 'results':results})
     if r['return']>0:
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
 
-    exit(1)
 
 
-    # Reproducing Figure 2 ###################################################################################
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
-                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'program_uoa':cfg['programs_uoa']['graph500'],
                   'env':{'CK_COMPILE_TYPE':'no'},
+                  'cmd':'s21e10',
                   'deps':deps,
                   'quiet':q,
-                  'title':'Reproducing experiments for Figure 2',
-                  'subtitle':'Validating nas-is no prefetching:',
-                  'key':'figure-2-nas-is-no-prefetching', 'results':results})
+                  'title':'',
+                  'subtitle':'Validating graph500 no prefetching:',
+                  'key':'figure-4-graph500-s21-no-prefetching', 'results':results})
     if r['return']>0:
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
 
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
-                  'program_uoa':cfg['programs_uoa']['nas-is'],
-                  'env':{'CK_COMPILE_TYPE':'offset-64-nostride'},
+                  'program_uoa':cfg['programs_uoa']['graph500'],
+                  'env':{'CK_COMPILE_TYPE':'auto'},
+                  'cmd':'s21e10',
                   'deps':deps,
                   'quiet':q,
                   'title':'',
-                  'subtitle':'Validating nas-is intuitive:',
-                  'key':'figure-2-nas-is-offset-64-nostride', 'results':results})
+                  'subtitle':'Validating graph500 auto prefetching:',
+                  'key':'figure-4-graph500-s21-auto', 'results':results})
     if r['return']>0:
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
 
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
-                  'program_uoa':cfg['programs_uoa']['nas-is'],
-                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2},
+                  'program_uoa':cfg['programs_uoa']['graph500'],
+                  'env':{'CK_COMPILE_TYPE':'man-inorder'},
+                  'cmd':'s21e10',
                   'deps':deps,
                   'quiet':q,
                   'title':'',
-                  'subtitle':'Validating nas-is small:',
-                  'key':'figure-2-nas-is-offset-2', 'results':results})
+                  'subtitle':'Validating graph500 manual in order prefetching:',
+                  'key':'figure-4-graph500-s21-man-inorder', 'results':results})
     if r['return']>0:
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
 
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
-                  'program_uoa':cfg['programs_uoa']['nas-is'],
-                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2048},
+                  'program_uoa':cfg['programs_uoa']['graph500'],
+                  'env':{'CK_COMPILE_TYPE':'man-outoforder'},
+                  'cmd':'s21e10',
                   'deps':deps,
                   'quiet':q,
                   'title':'',
-                  'subtitle':'Validating nas-is big:',
-                  'key':'figure-2-nas-is-offset-2048', 'results':results})
+                  'subtitle':'Validating graph500 manual out of order prefetching:',
+                  'key':'figure-4-graph500-s21-man-outoforder', 'results':results})
     if r['return']>0:
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
-
-    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
-                  'program_uoa':cfg['programs_uoa']['nas-is'],
-                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2048},
-                  'deps':deps,
-                  'quiet':q,
-                  'title':'',
-                  'subtitle':'Validating nas-is best:',
-                  'key':'figure-2-nas-is-offset-64', 'results':results})
-    if r['return']>0:
-        log({'string':''})
-        log({'string':'Experiment failed ('+r['error']+')'})
-
-
 
 
 
