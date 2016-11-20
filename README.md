@@ -9,9 +9,8 @@ by S.Ainsworth and T.M.Jones
 
 Hardware pre-requisities
 ========================
-Any of the follows three architectures:
+Any of the following architectures:
 * Intel-based 
-* ARMv7
 * ARM64
 
 Software pre-requisites
@@ -57,7 +56,7 @@ Run
 
 $ ck run workflow-from-cgo2017-paper
 
-Compare with pre-recorded results (expected)
+Compare with pre-recorded results given by tests.
 
 If unexpected behavior, report to the author
 
