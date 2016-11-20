@@ -1,0 +1,26 @@
+{
+  "actions": {
+    "run": {
+      "desc": "run workflow"
+    }
+  },
+  "copyright": " ",
+  "desc": "Experiment workflow from CGO2017 paper",
+  "developer": " ",
+  "developer_email": " ",
+  "developer_webpage": " ",
+  "license": " ",
+  "programs_uoa": {
+    "graph500":"5461e8f3d8681745",
+    "hashjoin-ph-2":"491f2d46f4a5a01d",
+    "hashjoin-ph-8":"77048f4b89ac7814",
+    "nas-cg":"2544fd86ec43416d",
+    "nas-is":"773bfa4c148d98dc",
+    "randacc":"04810be822e46a1f"
+  },
+  "module_deps": {
+    "env": "9b9b3208ac44b891", 
+    "platform": "707ccdfe444cafac",
+    "program":"b0ac08fe1d3c2615"
+  }
+}
