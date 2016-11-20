@@ -11,7 +11,7 @@ Hardware pre-requisities
 ========================
 Any of the following architectures:
 * Intel-based 
-* ARM64
+* ARM64 with 64-bit kernel
 
 Software pre-requisites
 =======================
@@ -114,3 +114,16 @@ S.Ainsworth and T.M.Jones
 Acknowledgments
 ===============
 This work was supported by the Engineering and Physical Sciences Research Council (EPSRC), through grant references EP/K026399/1 and EP/M506485/1, and ARM Ltd.
+
+Troubleshooting
+===============
+
+Issues with GLIBCXX_3.4.20/3.4.21 when using CK: These sometimes occur on earlier Ubuntu versions (14.04) on ARM/x86. This can be fixed by upgrading to later versions of Ubuntu, or can sometimes be fixed by:
+
+```
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-upgrade
+```
+
