@@ -1,0 +1,154 @@
+
+---------------------------------
+
+hj8
+
+***************
+no prefetching
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 9199238432 	 2948528512 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.959156
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2881338.0000 	 12800000 	 718.6905 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 9185166170 	 2934176248 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.959251
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2876930.0000 	 12800000 	 717.5911 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 9180519459 	 2940402575 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.955849
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2875475.0000 	 12800000 	 717.2281 
+[INFO ] Results = 12800000. DONE.
+
+***************
+prefetches:  1
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 6994757263 	 2933180378 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.273005
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2190862.0000 	 12800000 	 546.4654 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 6981417035 	 2919629955 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.273062
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2186684.0000 	 12800000 	 545.4232 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 6998238752 	 2935307040 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.273397
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2191953.0000 	 12800000 	 546.7374 
+[INFO ] Results = 12800000. DONE.
+
+***************
+prefetches:  2
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 5796694865 	 2931205585 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.898101
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+1815611.0000 	 12800000 	 452.8668 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 5821972759 	 2958061286 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.897577
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+1823528.0000 	 12800000 	 454.8416 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 5792289236 	 2922211994 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.899537
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+1814232.0000 	 12800000 	 452.5226 
+[INFO ] Results = 12800000. DONE.
+
+***************
+prefetches:  3
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 4974548378 	 2935593993 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.638997
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+1558103.0000 	 12800000 	 388.6366 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 5008021714 	 2970757507 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.638449
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+1568587.0000 	 12800000 	 391.2517 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 4967711034 	 2927772765 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.639291
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+1555961.0000 	 12800000 	 388.1024 
+[INFO ] Results = 12800000. DONE.
+
+***************
+prefetches:  4
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 6127388222 	 2949457775 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.995967
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+1919190.0000 	 12800000 	 478.7022 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 6096672739 	 2928751846 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.992797
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+1909569.0000 	 12800000 	 476.3026 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 6073993967 	 2905456946 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.993065
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+1902465.0000 	 12800000 	 474.5308 
+[INFO ] Results = 12800000. DONE.

@@ -53,63 +53,9 @@ $ ck run program:nas-cg
 Running experimental workflows (reproducing figures)
 ====================================================
 
+Run
 
-
-TBD add compilation to the experimental workflow:
-
-
-```
-$ ck compile program:graph500 --speed --env.CK_COMPILATION_TYPE=auto
-$ ck compile program:graph500 --speed --env.CK_COMPILATION_TYPE=auto-nostride
-$ ck compile program:graph500 --speed --env.CK_COMPILATION_TYPE=man-inorder
-$ ck compile program:graph500 --speed --env.CK_COMPILATION_TYPE=man-outoforder
-$ ck compile program:graph500 --speed --env.CK_COMPILATION_TYPE=man-inorder-nostride
-$ ck compile program:graph500 --speed --env.CK_COMPILATION_TYPE=man-outoforder-nostride
-$ ck compile program:graph500 --speed --env.CK_COMPILATION_TYPE=no
-```
-
-```
-$ ck compile program:hashjoin-ph-2 --env.CK_COMPILATION_TYPE=auto
-$ ck compile program:hashjoin-ph-2 --env.CK_COMPILATION_TYPE=auto-nostride
-$ ck compile program:hashjoin-ph-2 --env.CK_COMPILATION_TYPE=man
-$ ck compile program:hashjoin-ph-2 --env.CK_COMPILATION_TYPE=offset --env.CK_FETCHDIST={2,4,8,16,32,64,128,256}
-```
-
-```
-$ ck compile program:hashjoin-ph-2 --env.CK_COMPILATION_TYPE=no
-$ ck compile program:hashjoin-ph-8 --env.CK_COMPILATION_TYPE=auto
-$ ck compile program:hashjoin-ph-8 --env.CK_COMPILATION_TYPE=auto-nostride
-$ ck compile program:hashjoin-ph-8 --env.CK_COMPILATION_TYPE=man
-$ ck compile program:hashjoin-ph-8 --env.CK_COMPILATION_TYPE=prefetches --env.CK_NUMPREFETCHES={1,2,3,4}
-$ ck compile program:hashjoin-ph-8 --env.CK_COMPILATION_TYPE=no
-```
-
-```
-$ ck compile program:nas-cg --speed --env.CK_COMPILATION_TYPE=auto
-$ ck compile program:nas-cg --speed --env.CK_COMPILATION_TYPE=auto-nostride
-$ ck compile program:nas-cg --speed --env.CK_COMPILATION_TYPE=man
-$ ck compile program:nas-cg --speed --env.CK_COMPILATION_TYPE=offset --env.CK_FETCHDIST={2,4,8,16,32,64,128,256,2048}
-$ ck compile program:nas-cg --speed --env.CK_COMPILATION_TYPE=offset-64-nostride
-$ ck compile program:nas-cg --speed --env.CK_COMPILATION_TYPE=no
-```
-
-```
-$ ck compile program:nas-is --speed --env.CK_COMPILATION_TYPE=auto
-$ ck compile program:nas-is --speed --env.CK_COMPILATION_TYPE=auto-nostride
-$ ck compile program:nas-is --speed --env.CK_COMPILATION_TYPE=man
-$ ck compile program:nas-is --speed --env.CK_COMPILATION_TYPE=offset --env.CK_FETCHDIST={2,4,8,16,32,64,128,256,2048}
-$ ck compile program:nas-is --speed --env.CK_COMPILATION_TYPE=offset-64-nostride
-$ ck compile program:nas-is --speed --env.CK_COMPILATION_TYPE=no
-```
-
-```
-$ ck compile program:randacc --speed --env.CK_COMPILATION_TYPE=auto
-$ ck compile program:randacc --speed --env.CK_COMPILATION_TYPE=auto-nostride
-$ ck compile program:randacc --speed --env.CK_COMPILATION_TYPE=man
-$ ck compile program:randacc --speed --env.CK_COMPILATION_TYPE=offset --env.CK_FETCHDIST={2,4,8,16,32,64,128,256}
-$ ck compile program:randacc --speed --env.CK_COMPILATION_TYPE=offset-32-nostride
-$ ck compile program:randacc --speed --env.CK_COMPILATION_TYPE=no
-```
+$ ck run workflow-from-cgo2017-paper
 
 Compare with pre-recorded results (expected)
 

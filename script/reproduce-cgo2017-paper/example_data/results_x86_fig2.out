@@ -1,0 +1,364 @@
+
+---------------------------------
+
+is
+
+***************
+no prefetching
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.508808
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.51
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.430957
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.43
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.554858
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.55
+
+***************
+intuitive
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.479107
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.48
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.531832
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.53
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.669945
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.67
+
+***************
+too small
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 2.048858
+
+
+ IS Benchmark Completed
+ Time in seconds =                     2.05
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.806454
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.81
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.745837
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.75
+
+***************
+too big
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.457389
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.46
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.455001
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.46
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.460412
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.46
+
+***************
+best
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.198429
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.20
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.169062
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.17
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.213789
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.21

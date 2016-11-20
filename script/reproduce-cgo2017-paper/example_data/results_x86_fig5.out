@@ -1,0 +1,1257 @@
+
+---------------------------------
+
+cg
+
+***************
+no prefetching
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - CG Benchmark
+ Size:      75000
+ Iterations:    75
+   iteration           ||r||                 zeta
+        1       3.03548598614517e-13 5.9999475157875e+01
+        2       1.11864354882675e-15 2.1762784614254e+01
+        3       1.13122585119279e-15 2.2287661704322e+01
+        4       1.12221605852839e-15 2.2523073818835e+01
+        5       1.12442341772191e-15 2.2627539065389e+01
+        6       1.13304348193841e-15 2.2674025918953e+01
+        7       1.13342596230503e-15 2.2694905682625e+01
+        8       1.13748393136469e-15 2.2704402316687e+01
+        9       1.14248774430387e-15 2.2708783434562e+01
+       10       1.13294751905663e-15 2.2710835139718e+01
+ Benchmark completed
+
+
+ CG Benchmark Completed
+ Time in seconds =                    10.89
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - CG Benchmark
+ Size:      75000
+ Iterations:    75
+   iteration           ||r||                 zeta
+        1       3.03548598614517e-13 5.9999475157875e+01
+        2       1.11864354882675e-15 2.1762784614254e+01
+        3       1.13122585119279e-15 2.2287661704322e+01
+        4       1.12221605852839e-15 2.2523073818835e+01
+        5       1.12442341772191e-15 2.2627539065389e+01
+        6       1.13304348193841e-15 2.2674025918953e+01
+        7       1.13342596230503e-15 2.2694905682625e+01
+        8       1.13748393136469e-15 2.2704402316687e+01
+        9       1.14248774430387e-15 2.2708783434562e+01
+       10       1.13294751905663e-15 2.2710835139718e+01
+ Benchmark completed
+
+
+ CG Benchmark Completed
+ Time in seconds =                    10.89
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - CG Benchmark
+ Size:      75000
+ Iterations:    75
+   iteration           ||r||                 zeta
+        1       3.03548598614517e-13 5.9999475157875e+01
+        2       1.11864354882675e-15 2.1762784614254e+01
+        3       1.13122585119279e-15 2.2287661704322e+01
+        4       1.12221605852839e-15 2.2523073818835e+01
+        5       1.12442341772191e-15 2.2627539065389e+01
+        6       1.13304348193841e-15 2.2674025918953e+01
+        7       1.13342596230503e-15 2.2694905682625e+01
+        8       1.13748393136469e-15 2.2704402316687e+01
+        9       1.14248774430387e-15 2.2708783434562e+01
+       10       1.13294751905663e-15 2.2710835139718e+01
+ Benchmark completed
+
+
+ CG Benchmark Completed
+ Time in seconds =                    10.89
+
+***************
+auto prefetching
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - CG Benchmark
+ Size:      75000
+ Iterations:    75
+   iteration           ||r||                 zeta
+        1       3.03548598614517e-13 5.9999475157875e+01
+        2       1.11864354882675e-15 2.1762784614254e+01
+        3       1.13122585119279e-15 2.2287661704322e+01
+        4       1.12221605852839e-15 2.2523073818835e+01
+        5       1.12442341772191e-15 2.2627539065389e+01
+        6       1.13304348193841e-15 2.2674025918953e+01
+        7       1.13342596230503e-15 2.2694905682625e+01
+        8       1.13748393136469e-15 2.2704402316687e+01
+        9       1.14248774430387e-15 2.2708783434562e+01
+       10       1.13294751905663e-15 2.2710835139718e+01
+ Benchmark completed
+
+
+ CG Benchmark Completed
+ Time in seconds =                    11.11
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - CG Benchmark
+ Size:      75000
+ Iterations:    75
+   iteration           ||r||                 zeta
+        1       3.03548598614517e-13 5.9999475157875e+01
+        2       1.11864354882675e-15 2.1762784614254e+01
+        3       1.13122585119279e-15 2.2287661704322e+01
+        4       1.12221605852839e-15 2.2523073818835e+01
+        5       1.12442341772191e-15 2.2627539065389e+01
+        6       1.13304348193841e-15 2.2674025918953e+01
+        7       1.13342596230503e-15 2.2694905682625e+01
+        8       1.13748393136469e-15 2.2704402316687e+01
+        9       1.14248774430387e-15 2.2708783434562e+01
+       10       1.13294751905663e-15 2.2710835139718e+01
+ Benchmark completed
+
+
+ CG Benchmark Completed
+ Time in seconds =                    11.11
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - CG Benchmark
+ Size:      75000
+ Iterations:    75
+   iteration           ||r||                 zeta
+        1       3.03548598614517e-13 5.9999475157875e+01
+        2       1.11864354882675e-15 2.1762784614254e+01
+        3       1.13122585119279e-15 2.2287661704322e+01
+        4       1.12221605852839e-15 2.2523073818835e+01
+        5       1.12442341772191e-15 2.2627539065389e+01
+        6       1.13304348193841e-15 2.2674025918953e+01
+        7       1.13342596230503e-15 2.2694905682625e+01
+        8       1.13748393136469e-15 2.2704402316687e+01
+        9       1.14248774430387e-15 2.2708783434562e+01
+       10       1.13294751905663e-15 2.2710835139718e+01
+ Benchmark completed
+
+
+ CG Benchmark Completed
+ Time in seconds =                    11.11
+
+***************
+auto prefetching (indirect only)
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - CG Benchmark
+ Size:      75000
+ Iterations:    75
+   iteration           ||r||                 zeta
+        1       3.03548598614517e-13 5.9999475157875e+01
+        2       1.11864354882675e-15 2.1762784614254e+01
+        3       1.13122585119279e-15 2.2287661704322e+01
+        4       1.12221605852839e-15 2.2523073818835e+01
+        5       1.12442341772191e-15 2.2627539065389e+01
+        6       1.13304348193841e-15 2.2674025918953e+01
+        7       1.13342596230503e-15 2.2694905682625e+01
+        8       1.13748393136469e-15 2.2704402316687e+01
+        9       1.14248774430387e-15 2.2708783434562e+01
+       10       1.13294751905663e-15 2.2710835139718e+01
+ Benchmark completed
+
+
+ CG Benchmark Completed
+ Time in seconds =                    11.72
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - CG Benchmark
+ Size:      75000
+ Iterations:    75
+   iteration           ||r||                 zeta
+        1       3.03548598614517e-13 5.9999475157875e+01
+        2       1.11864354882675e-15 2.1762784614254e+01
+        3       1.13122585119279e-15 2.2287661704322e+01
+        4       1.12221605852839e-15 2.2523073818835e+01
+        5       1.12442341772191e-15 2.2627539065389e+01
+        6       1.13304348193841e-15 2.2674025918953e+01
+        7       1.13342596230503e-15 2.2694905682625e+01
+        8       1.13748393136469e-15 2.2704402316687e+01
+        9       1.14248774430387e-15 2.2708783434562e+01
+       10       1.13294751905663e-15 2.2710835139718e+01
+ Benchmark completed
+
+
+ CG Benchmark Completed
+ Time in seconds =                    11.72
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - CG Benchmark
+ Size:      75000
+ Iterations:    75
+   iteration           ||r||                 zeta
+        1       3.03548598614517e-13 5.9999475157875e+01
+        2       1.11864354882675e-15 2.1762784614254e+01
+        3       1.13122585119279e-15 2.2287661704322e+01
+        4       1.12221605852839e-15 2.2523073818835e+01
+        5       1.12442341772191e-15 2.2627539065389e+01
+        6       1.13304348193841e-15 2.2674025918953e+01
+        7       1.13342596230503e-15 2.2694905682625e+01
+        8       1.13748393136469e-15 2.2704402316687e+01
+        9       1.14248774430387e-15 2.2708783434562e+01
+       10       1.13294751905663e-15 2.2710835139718e+01
+ Benchmark completed
+
+
+ CG Benchmark Completed
+ Time in seconds =                    11.71
+
+---------------------------------
+
+is
+
+***************
+no prefetching
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.367953
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.37
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.378262
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.38
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.382997
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.38
+
+***************
+auto prefetching
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.100107
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.10
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.095470
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.10
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.092823
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.09
+
+***************
+auto prefetching (indirect only)
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.325876
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.33
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.325025
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.33
+
+
+ NAS Parallel Benchmarks 2.3 OpenACC C version - IS Benchmark
+
+ Size:  33554432  (class B)
+ Iterations:   10
+
+   iteration
+        1
+        2
+        3
+        4
+        5
+        6
+        7
+        8
+        9
+        10
+time : 1.321083
+
+
+ IS Benchmark Completed
+ Time in seconds =                     1.32
+
+---------------------------------
+
+randacc
+
+***************
+no prefetching
+
+real	0m0.352s
+user	0m0.330s
+sys	0m0.004s
+
+real	0m0.341s
+user	0m0.340s
+sys	0m0.000s
+
+real	0m0.349s
+user	0m0.344s
+sys	0m0.004s
+
+***************
+auto prefetching
+
+real	0m0.379s
+user	0m0.357s
+sys	0m0.004s
+
+real	0m0.349s
+user	0m0.339s
+sys	0m0.008s
+
+real	0m0.340s
+user	0m0.331s
+sys	0m0.008s
+
+***************
+auto prefetching (indirect only)
+
+real	0m0.343s
+user	0m0.333s
+sys	0m0.008s
+
+real	0m0.341s
+user	0m0.335s
+sys	0m0.004s
+
+real	0m0.339s
+user	0m0.333s
+sys	0m0.004s
+
+---------------------------------
+
+hj2
+
+***************
+no prefetching
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 1603768006 	 599120355 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.314838
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+502324.0000 	 12800000 	 125.2944 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 1611191104 	 608701533 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.314167
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+504649.0000 	 12800000 	 125.8743 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 1609202639 	 610173914 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.313098
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+504027.0000 	 12800000 	 125.7190 
+[INFO ] Results = 12800000. DONE.
+
+***************
+auto prefetching
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 1032438831 	 606236832 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.133563
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+323375.0000 	 12800000 	 80.6593 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 1027056271 	 602078467 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.133168
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+321690.0000 	 12800000 	 80.2388 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 1023646226 	 601045239 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.132421
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+320622.0000 	 12800000 	 79.9724 
+[INFO ] Results = 12800000. DONE.
+
+***************
+auto prefetching (indirect only)
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 1087992634 	 607488381 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.150587
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+340775.0000 	 12800000 	 84.9994 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 1089373670 	 607498580 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.150998
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+341208.0000 	 12800000 	 85.1073 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 1088686071 	 611052771 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 0.149687
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+340993.0000 	 12800000 	 85.0536 
+[INFO ] Results = 12800000. DONE.
+
+---------------------------------
+
+hj8
+
+***************
+no prefetching
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 9363899607 	 2983680684 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.999546
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2932912.0000 	 12800000 	 731.5547 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 9494174112 	 2975953905 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 2.042777
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2973715.0000 	 12800000 	 741.7324 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 9594506397 	 3107616911 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 2.032949
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+3005141.0000 	 12800000 	 749.5708 
+[INFO ] Results = 12800000. DONE.
+
+***************
+auto prefetching
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 7968227721 	 3157704355 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.507446
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2495766.0000 	 12800000 	 622.5178 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 12641971461 	 5107470222 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 2.360634
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+3959653.0000 	 12800000 	 987.6540 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 10918940213 	 5156327636 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.805819
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+3419974.0000 	 12800000 	 853.0422 
+[INFO ] Results = 12800000. DONE.
+auto prefetching (indirect only)
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 7142142869 	 2944672422 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.315497
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2237025.0000 	 12800000 	 557.9799 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 7699977839 	 3428231757 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.338215
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2411747.0000 	 12800000 	 601.5608 
+[INFO ] Results = 12800000. DONE.
+[INFO ] Creating relation R with size = 97.656 MiB, #tuples = 12800000 : OK 
+[INFO ] Creating relation S with size = 97.656 MiB, #tuples = 12800000 : 7140650502 	 2947283992 	 0 OK 
+[INFO ] Running join algorithm NPO_st ...
+time : 1.314084
+RUNTIME TOTAL, BUILD, PART (cycles): 
+
+TOTAL-TIME-USECS, TOTAL-TUPLES, CYCLES-PER-TUPLE: 
+2236557.0000 	 12800000 	 557.8633 
+[INFO ] Results = 12800000. DONE.
+
+---------------------------------
+
+g500-s16
+
+***************
+no prefetching
+SCALE: 16
+nvtx: 65536
+edgefactor: 10
+terasize: 1.04857599999999994e-05
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 2.01072279000000020e-01
+construction_time: 8.35915209999998909e-02
+nbfs: 64
+min_time: 3.73987200000000042e-03
+firstquartile_time: 3.88034925000000025e-03
+median_time: 3.92801050000000061e-03
+thirdquartile_time: 4.04086199999999923e-03
+max_time: 5.04344000000000060e-03
+mean_time: 4.01118260937500040e-03
+stddev_time: 2.55877162587684584e-04
+min_nedge: 6.55343000000000000e+05
+firstquartile_nedge: 6.55343000000000000e+05
+median_nedge: 6.55343000000000000e+05
+thirdquartile_nedge: 6.55343000000000000e+05
+max_nedge: 6.55343000000000000e+05
+mean_nedge: 6.55343000000000000e+05
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 1.29939684025189146e+08
+firstquartile_TEPS: 1.63355519853272557e+08
+median_TEPS: 1.67219456551063478e+08
+thirdquartile_TEPS: 1.68941697800657481e+08
+max_TEPS: 1.75231398293845326e+08
+harmonic_mean_TEPS: 1.63378999118195683e+08
+harmonic_stddev_TEPS: 1.31306144338282873e+06
+SCALE: 16
+nvtx: 65536
+edgefactor: 10
+terasize: 1.04857599999999994e-05
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 1.96509607000000003e-01
+construction_time: 8.35081260000000020e-02
+nbfs: 64
+min_time: 3.71232800000000042e-03
+firstquartile_time: 3.86724274999999994e-03
+median_time: 3.90252550000000017e-03
+thirdquartile_time: 3.99179000000000027e-03
+max_time: 5.01018300000000052e-03
+mean_time: 3.98528081250000034e-03
+stddev_time: 2.34092114434825610e-04
+min_nedge: 6.55343000000000000e+05
+firstquartile_nedge: 6.55343000000000000e+05
+median_nedge: 6.55343000000000000e+05
+thirdquartile_nedge: 6.55343000000000000e+05
+max_nedge: 6.55343000000000000e+05
+mean_nedge: 6.55343000000000000e+05
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 1.30802208222733572e+08
+firstquartile_TEPS: 1.64922143856727690e+08
+median_TEPS: 1.68167962725233197e+08
+thirdquartile_TEPS: 1.69707395872359067e+08
+max_TEPS: 1.76531545703935623e+08
+harmonic_mean_TEPS: 1.64440858958919346e+08
+harmonic_stddev_TEPS: 1.21693482112859888e+06
+SCALE: 16
+nvtx: 65536
+edgefactor: 10
+terasize: 1.04857599999999994e-05
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 1.97393872000000026e-01
+construction_time: 8.40820420000000096e-02
+nbfs: 64
+min_time: 3.71648300000000003e-03
+firstquartile_time: 3.84120075000000038e-03
+median_time: 3.88038600000000043e-03
+thirdquartile_time: 4.04667875000000021e-03
+max_time: 5.01640600000000016e-03
+mean_time: 3.98039139062500002e-03
+stddev_time: 2.58858621719945377e-04
+min_nedge: 6.55343000000000000e+05
+firstquartile_nedge: 6.55343000000000000e+05
+median_nedge: 6.55343000000000000e+05
+thirdquartile_nedge: 6.55343000000000000e+05
+max_nedge: 6.55343000000000000e+05
+mean_nedge: 6.55343000000000000e+05
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 1.30639944215041608e+08
+firstquartile_TEPS: 1.65386020343509614e+08
+median_TEPS: 1.69084356772011161e+08
+thirdquartile_TEPS: 1.70744583234877259e+08
+max_TEPS: 1.76334184765543133e+08
+harmonic_mean_TEPS: 1.64642854354354888e+08
+harmonic_stddev_TEPS: 1.34899229215758014e+06
+
+***************
+auto prefetching
+SCALE: 16
+nvtx: 65536
+edgefactor: 10
+terasize: 1.04857599999999994e-05
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 1.98083589000000004e-01
+construction_time: 8.25448690000000068e-02
+nbfs: 64
+min_time: 3.27013500000000040e-03
+firstquartile_time: 3.44223825000000011e-03
+median_time: 3.48899550000000011e-03
+thirdquartile_time: 3.53265800000000015e-03
+max_time: 3.90285500000000021e-03
+mean_time: 3.49074948437500020e-03
+stddev_time: 1.05677268798141580e-04
+min_nedge: 6.55343000000000000e+05
+firstquartile_nedge: 6.55343000000000000e+05
+median_nedge: 6.55343000000000000e+05
+thirdquartile_nedge: 6.55343000000000000e+05
+max_nedge: 6.55343000000000000e+05
+mean_nedge: 6.55343000000000000e+05
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 1.67913745194223195e+08
+firstquartile_TEPS: 1.85652847457876265e+08
+median_TEPS: 1.88304483249650300e+08
+thirdquartile_TEPS: 1.90635263526044846e+08
+max_TEPS: 2.00402429869103253e+08
+harmonic_mean_TEPS: 1.87737046996179849e+08
+harmonic_stddev_TEPS: 7.16048774210090865e+05
+SCALE: 16
+nvtx: 65536
+edgefactor: 10
+terasize: 1.04857599999999994e-05
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 1.97606383000000024e-01
+construction_time: 8.23652760000000012e-02
+nbfs: 64
+min_time: 3.28884900000000037e-03
+firstquartile_time: 3.47445475000000056e-03
+median_time: 3.52063500000000026e-03
+thirdquartile_time: 3.54170349999999995e-03
+max_time: 3.73210200000000016e-03
+mean_time: 3.50834076562500045e-03
+stddev_time: 8.90945159268839764e-05
+min_nedge: 6.55343000000000000e+05
+firstquartile_nedge: 6.55343000000000000e+05
+median_nedge: 6.55343000000000000e+05
+thirdquartile_nedge: 6.55343000000000000e+05
+max_nedge: 6.55343000000000000e+05
+mean_nedge: 6.55343000000000000e+05
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 1.75596218967220068e+08
+firstquartile_TEPS: 1.85154846962685883e+08
+median_TEPS: 1.86287549599316537e+08
+thirdquartile_TEPS: 1.88954785019434482e+08
+max_TEPS: 1.99262112672244877e+08
+harmonic_mean_TEPS: 1.86795708792344928e+08
+harmonic_stddev_TEPS: 5.97648485187308281e+05
+SCALE: 16
+nvtx: 65536
+edgefactor: 10
+terasize: 1.04857599999999994e-05
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 1.97904055000000023e-01
+construction_time: 8.22264980000000090e-02
+nbfs: 64
+min_time: 3.24466700000000012e-03
+firstquartile_time: 3.40055499999999998e-03
+median_time: 3.43378550000000013e-03
+thirdquartile_time: 3.46649200000000027e-03
+max_time: 3.65414300000000032e-03
+mean_time: 3.42667293750000034e-03
+stddev_time: 6.98249841447990077e-05
+min_nedge: 6.55343000000000000e+05
+firstquartile_nedge: 6.55343000000000000e+05
+median_nedge: 6.55343000000000000e+05
+thirdquartile_nedge: 6.55343000000000000e+05
+max_nedge: 6.55343000000000000e+05
+mean_nedge: 6.55343000000000000e+05
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 1.79342461419818521e+08
+firstquartile_TEPS: 1.89374884021120310e+08
+median_TEPS: 1.91075862843946874e+08
+thirdquartile_TEPS: 1.92918347885375351e+08
+max_TEPS: 2.01975426137720764e+08
+harmonic_mean_TEPS: 1.91247607213461995e+08
+harmonic_stddev_TEPS: 4.90980141282859608e+05
+
+***************
+auto prefetching (indirect only)
+SCALE: 16
+nvtx: 65536
+edgefactor: 10
+terasize: 1.04857599999999994e-05
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 1.94640541000000000e-01
+construction_time: 8.40780840000000113e-02
+nbfs: 64
+min_time: 3.48458799999995517e-03
+firstquartile_time: 3.57403975000000025e-03
+median_time: 3.60596550000000021e-03
+thirdquartile_time: 3.68128999999999982e-03
+max_time: 4.17359700000000024e-03
+mean_time: 3.65011801562499950e-03
+stddev_time: 1.40743212980856019e-04
+min_nedge: 6.55343000000000000e+05
+firstquartile_nedge: 6.55343000000000000e+05
+median_nedge: 6.55343000000000000e+05
+thirdquartile_nedge: 6.55343000000000000e+05
+max_nedge: 6.55343000000000000e+05
+mean_nedge: 6.55343000000000000e+05
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 1.57021149861857772e+08
+firstquartile_TEPS: 1.78342422398494989e+08
+median_TEPS: 1.81808987215199739e+08
+thirdquartile_TEPS: 1.83510654360924721e+08
+max_TEPS: 1.88069005575410485e+08
+harmonic_mean_TEPS: 1.79540222314644098e+08
+harmonic_stddev_TEPS: 8.72191879264399991e+05
+SCALE: 16
+nvtx: 65536
+edgefactor: 10
+terasize: 1.04857599999999994e-05
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 1.95881185000000013e-01
+construction_time: 8.44199290000000047e-02
+nbfs: 64
+min_time: 3.48634200000000035e-03
+firstquartile_time: 3.57591550000000043e-03
+median_time: 3.60750099999999994e-03
+thirdquartile_time: 3.64365325000000004e-03
+max_time: 3.92811700000000007e-03
+mean_time: 3.61853998437500039e-03
+stddev_time: 8.69258583564163116e-05
+min_nedge: 6.55343000000000000e+05
+firstquartile_nedge: 6.55343000000000000e+05
+median_nedge: 6.55343000000000000e+05
+thirdquartile_nedge: 6.55343000000000000e+05
+max_nedge: 6.55343000000000000e+05
+mean_nedge: 6.55343000000000000e+05
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 1.66833879948076904e+08
+firstquartile_TEPS: 1.79981373480563045e+08
+median_TEPS: 1.81830596818274140e+08
+thirdquartile_TEPS: 1.83353411481963277e+08
+max_TEPS: 1.87974386907538027e+08
+harmonic_mean_TEPS: 1.81107021845771283e+08
+harmonic_stddev_TEPS: 5.48126281734884251e+05
+SCALE: 16
+nvtx: 65536
+edgefactor: 10
+terasize: 1.04857599999999994e-05
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 1.95939141000000011e-01
+construction_time: 8.40586040000000090e-02
+nbfs: 64
+min_time: 3.48075100000000024e-03
+firstquartile_time: 3.57094275000000060e-03
+median_time: 3.61689150000000029e-03
+thirdquartile_time: 3.72557300000000025e-03
+max_time: 4.14489400000000053e-03
+mean_time: 3.66942267187500039e-03
+stddev_time: 1.60135209106520454e-04
+min_nedge: 6.55343000000000000e+05
+firstquartile_nedge: 6.55343000000000000e+05
+median_nedge: 6.55343000000000000e+05
+thirdquartile_nedge: 6.55343000000000000e+05
+max_nedge: 6.55343000000000000e+05
+mean_nedge: 6.55343000000000000e+05
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 1.58108506514279962e+08
+firstquartile_TEPS: 1.77129084507769197e+08
+median_TEPS: 1.81488708456423134e+08
+thirdquartile_TEPS: 1.83883897250601441e+08
+max_TEPS: 1.88276323126819462e+08
+harmonic_mean_TEPS: 1.78595669837384284e+08
+harmonic_stddev_TEPS: 9.81950829820681945e+05
+
+---------------------------------
+
+***************
+no prefetching
+SCALE: 21
+nvtx: 2097152
+edgefactor: 10
+terasize: 3.35544319999999980e-04
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 7.61938493300000008e+00
+construction_time: 3.30966168299999985e+00
+nbfs: 64
+min_time: 2.36277687000000014e-01
+firstquartile_time: 2.37310873000000033e-01
+median_time: 2.37703321999999939e-01
+thirdquartile_time: 2.38365900749999998e-01
+max_time: 2.80099937000000021e-01
+mean_time: 2.39106652312500001e-01
+stddev_time: 6.94373263231380655e-03
+min_nedge: 2.09708540000000000e+07
+firstquartile_nedge: 2.09708540000000000e+07
+median_nedge: 2.09708540000000000e+07
+thirdquartile_nedge: 2.09708540000000000e+07
+max_nedge: 2.09708540000000000e+07
+mean_nedge: 2.09708540000000000e+07
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 7.48691849937831312e+07
+firstquartile_TEPS: 8.79876651866143644e+07
+median_TEPS: 8.82416931905665249e+07
+thirdquartile_TEPS: 8.84356020712363720e+07
+max_TEPS: 8.87551180404097885e+07
+harmonic_mean_TEPS: 8.77050211576388180e+07
+harmonic_stddev_TEPS: 3.20889505467246461e+05
+SCALE: 21
+nvtx: 2097152
+edgefactor: 10
+terasize: 3.35544319999999980e-04
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 7.62810043400000026e+00
+construction_time: 3.17832858700000020e+00
+nbfs: 64
+min_time: 2.36091192999999921e-01
+firstquartile_time: 2.37974012749999991e-01
+median_time: 2.38620623000000004e-01
+thirdquartile_time: 2.39423033499999993e-01
+max_time: 2.44312767999999902e-01
+mean_time: 2.38761148656250005e-01
+stddev_time: 1.41559653078582293e-03
+min_nedge: 2.09708540000000000e+07
+firstquartile_nedge: 2.09708540000000000e+07
+median_nedge: 2.09708540000000000e+07
+thirdquartile_nedge: 2.09708540000000000e+07
+max_nedge: 2.09708540000000000e+07
+mean_nedge: 2.09708540000000000e+07
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 8.58360951483305544e+07
+firstquartile_TEPS: 8.76522096280185282e+07
+median_TEPS: 8.78929553364315331e+07
+thirdquartile_TEPS: 8.81432259216812253e+07
+max_TEPS: 8.88252278008523881e+07
+harmonic_mean_TEPS: 8.78319363012959361e+07
+harmonic_stddev_TEPS: 6.56081833301222359e+04
+SCALE: 21
+nvtx: 2097152
+edgefactor: 10
+terasize: 3.35544319999999980e-04
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 7.61978697700000041e+00
+construction_time: 3.17499793999999991e+00
+nbfs: 64
+min_time: 2.34296405000000013e-01
+firstquartile_time: 2.35837349999999973e-01
+median_time: 2.36472168000000038e-01
+thirdquartile_time: 2.37147294499999994e-01
+max_time: 2.40903824999999960e-01
+mean_time: 2.36534368328124994e-01
+stddev_time: 1.14246221295471475e-03
+min_nedge: 2.09708540000000000e+07
+firstquartile_nedge: 2.09708540000000000e+07
+median_nedge: 2.09708540000000000e+07
+thirdquartile_nedge: 2.09708540000000000e+07
+max_nedge: 2.09708540000000000e+07
+mean_nedge: 2.09708540000000000e+07
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 8.70507307221045792e+07
+firstquartile_TEPS: 8.84401696555690765e+07
+median_TEPS: 8.87371616702350974e+07
+thirdquartile_TEPS: 8.89508111068615615e+07
+max_TEPS: 8.95056584414942265e+07
+harmonic_mean_TEPS: 8.86588031507913023e+07
+harmonic_stddev_TEPS: 5.39509606008403935e+04
+
+***************
+auto prefetching
+SCALE: 21
+nvtx: 2097152
+edgefactor: 10
+terasize: 3.35544319999999980e-04
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 7.62533295999999972e+00
+construction_time: 3.12274376100000017e+00
+nbfs: 64
+min_time: 2.26842030000000028e-01
+firstquartile_time: 2.29369887500000008e-01
+median_time: 2.30786989999999970e-01
+thirdquartile_time: 2.34446711249999939e-01
+max_time: 3.68296296999999995e-01
+mean_time: 2.34642456781250008e-01
+stddev_time: 1.82833674632265908e-02
+min_nedge: 2.09708540000000000e+07
+firstquartile_nedge: 2.09708540000000000e+07
+median_nedge: 2.09708540000000000e+07
+thirdquartile_nedge: 2.09708540000000000e+07
+max_nedge: 2.09708540000000000e+07
+mean_nedge: 2.09708540000000000e+07
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 5.69401706474393383e+07
+firstquartile_TEPS: 8.97719029470244497e+07
+median_TEPS: 9.09731910573901385e+07
+thirdquartile_TEPS: 9.15042912884047180e+07
+max_TEPS: 9.24469508582690656e+07
+harmonic_mean_TEPS: 8.93736550821682215e+07
+harmonic_stddev_TEPS: 8.77382232526341453e+05
+SCALE: 21
+nvtx: 2097152
+edgefactor: 10
+terasize: 3.35544319999999980e-04
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 7.70444773799999982e+00
+construction_time: 3.15533197199999993e+00
+nbfs: 64
+min_time: 2.29682520999999973e-01
+firstquartile_time: 2.31122609249999944e-01
+median_time: 2.34449297500000015e-01
+thirdquartile_time: 2.42030092750000009e-01
+max_time: 4.20691650999999944e-01
+mean_time: 2.44584219828125005e-01
+stddev_time: 2.96221343739918562e-02
+min_nedge: 2.09708540000000000e+07
+firstquartile_nedge: 2.09708540000000000e+07
+median_nedge: 2.09708540000000000e+07
+thirdquartile_nedge: 2.09708540000000000e+07
+max_nedge: 2.09708540000000000e+07
+mean_nedge: 2.09708540000000000e+07
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 4.98485148211320266e+07
+firstquartile_TEPS: 8.78164476138510555e+07
+median_TEPS: 8.96302302684433460e+07
+thirdquartile_TEPS: 9.07908900416449904e+07
+max_TEPS: 9.13036564937390387e+07
+harmonic_mean_TEPS: 8.57408299469880164e+07
+harmonic_stddev_TEPS: 1.30829391774104629e+06
+SCALE: 21
+nvtx: 2097152
+edgefactor: 10
+terasize: 3.35544319999999980e-04
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 7.96414276900000040e+00
+construction_time: 3.33021698800000010e+00
+nbfs: 64
+min_time: 2.29417965000000001e-01
+firstquartile_time: 2.33531176749999986e-01
+median_time: 2.37615186500000020e-01
+thirdquartile_time: 2.52081196999999979e-01
+max_time: 2.82744782000000028e-01
+mean_time: 2.42132464453125001e-01
+stddev_time: 1.25565333450360882e-02
+min_nedge: 2.09708540000000000e+07
+firstquartile_nedge: 2.09708540000000000e+07
+median_nedge: 2.09708540000000000e+07
+thirdquartile_nedge: 2.09708540000000000e+07
+max_nedge: 2.09708540000000000e+07
+mean_nedge: 2.09708540000000000e+07
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 7.41688453157731444e+07
+firstquartile_TEPS: 8.53460038333244026e+07
+median_TEPS: 8.87330060054153204e+07
+thirdquartile_TEPS: 8.98876572743142992e+07
+max_TEPS: 9.14089443692868650e+07
+harmonic_mean_TEPS: 8.66090139848215133e+07
+harmonic_stddev_TEPS: 5.65860724836172769e+05
+
+***************
+auto prefetching (indirect only)
+SCALE: 21
+nvtx: 2097152
+edgefactor: 10
+terasize: 3.35544319999999980e-04
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 7.83217609100000001e+00
+construction_time: 3.26818062700000000e+00
+nbfs: 64
+min_time: 2.31513479000000022e-01
+firstquartile_time: 2.37085861000000009e-01
+median_time: 2.44325734999999988e-01
+thirdquartile_time: 2.52864894499999937e-01
+max_time: 3.53093785000000049e-01
+mean_time: 2.48827485984374985e-01
+stddev_time: 2.03347239896957549e-02
+min_nedge: 2.09708540000000000e+07
+firstquartile_nedge: 2.09708540000000000e+07
+median_nedge: 2.09708540000000000e+07
+thirdquartile_nedge: 2.09708540000000000e+07
+max_nedge: 2.09708540000000000e+07
+mean_nedge: 2.09708540000000000e+07
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 5.93917392230508849e+07
+firstquartile_TEPS: 8.32464551798487008e+07
+median_TEPS: 8.60806247450291365e+07
+thirdquartile_TEPS: 8.87880433722865731e+07
+max_TEPS: 9.05815682550388277e+07
+harmonic_mean_TEPS: 8.42786877705176622e+07
+harmonic_stddev_TEPS: 8.67735610311953351e+05
+SCALE: 21
+nvtx: 2097152
+edgefactor: 10
+terasize: 3.35544319999999980e-04
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 7.76585341400000040e+00
+construction_time: 3.27915494000000018e+00
+nbfs: 64
+min_time: 2.32356404000000016e-01
+firstquartile_time: 2.35832128000000002e-01
+median_time: 2.43574951999999956e-01
+thirdquartile_time: 2.50817269750000016e-01
+max_time: 2.82653316999999960e-01
+mean_time: 2.44153146999999987e-01
+stddev_time: 9.98290883506169208e-03
+min_nedge: 2.09708540000000000e+07
+firstquartile_nedge: 2.09708540000000000e+07
+median_nedge: 2.09708540000000000e+07
+thirdquartile_nedge: 2.09708540000000000e+07
+max_nedge: 2.09708540000000000e+07
+mean_nedge: 2.09708540000000000e+07
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 7.41928459307626039e+07
+firstquartile_TEPS: 8.43065000389374793e+07
+median_TEPS: 8.62540782011285424e+07
+thirdquartile_TEPS: 8.90292660348271132e+07
+max_TEPS: 9.02529632882423103e+07
+harmonic_mean_TEPS: 8.58922125627977252e+07
+harmonic_stddev_TEPS: 4.42464359591951186e+05
+SCALE: 21
+nvtx: 2097152
+edgefactor: 10
+terasize: 3.35544319999999980e-04
+A: 5.69999999999999951e-01
+B: 1.90000000000000002e-01
+C: 1.90000000000000002e-01
+D: 5.00000000000000444e-02
+generation_time: 7.75518540900000009e+00
+construction_time: 3.35580619499999999e+00
+nbfs: 64
+min_time: 2.31751177000000003e-01
+firstquartile_time: 2.35089857000000013e-01
+median_time: 2.38992041500000030e-01
+thirdquartile_time: 2.51001413999999978e-01
+max_time: 2.90333105000000036e-01
+mean_time: 2.43839064140625006e-01
+stddev_time: 1.24673620608321944e-02
+min_nedge: 2.09708540000000000e+07
+firstquartile_nedge: 2.09708540000000000e+07
+median_nedge: 2.09708540000000000e+07
+thirdquartile_nedge: 2.09708540000000000e+07
+max_nedge: 2.09708540000000000e+07
+mean_nedge: 2.09708540000000000e+07
+stddev_nedge: 0.00000000000000000e+00
+min_TEPS: 7.22303231662128121e+07
+firstquartile_TEPS: 8.37701182779156566e+07
+median_TEPS: 8.78122180405726135e+07
+thirdquartile_TEPS: 8.92684784728454500e+07
+max_TEPS: 9.04886623294258416e+07
+harmonic_mean_TEPS: 8.60028481240637004e+07
+harmonic_stddev_TEPS: 5.54005208986391546e+05
