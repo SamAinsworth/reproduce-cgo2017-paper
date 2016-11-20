@@ -1,9 +1,37 @@
 {
- "x86_64":{
- },
- "armv7l":{
-   "figure-2-nas-is-no-prefetching":{"stmin":"0.12", "stmax":"0.13"}
- },
- "aarch64":{
- }
+  "aarch64": {}, 
+  "armv7l": {
+  }, 
+  "x86_64": {
+    "figure-2-nas-is-no-prefetching": {
+      "stmax": "1.310", 
+      "stmean": "1.310", 
+      "stmin": "1.310"
+    }, 
+    "figure-2-nas-is-offset-2": {
+      "stmax": "1.530", 
+      "stmean": "1.530", 
+      "stmin": "1.530"
+    }, 
+    "figure-2-nas-is-offset-2048": {
+      "stmax": "1.280", 
+      "stmean": "1.280", 
+      "stmin": "1.280"
+    }, 
+    "figure-2-nas-is-offset-64": {
+      "stmax": "1.290", 
+      "stmean": "1.290", 
+      "stmin": "1.290"
+    }, 
+    "figure-2-nas-is-offset-64-nostride": {
+      "stmax": "1.280", 
+      "stmean": "1.280", 
+      "stmin": "1.280"
+    }, 
+    "figure-4-nas-cg-no-prefetching": {
+      "stmax": "11.040", 
+      "stmean": "11.040", 
+      "stmin": "11.040"
+    }
+  }
 }

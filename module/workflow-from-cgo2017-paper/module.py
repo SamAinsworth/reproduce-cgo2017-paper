@@ -82,14 +82,22 @@ def experiment(i):
     """
 
     Input:  {
-              program_uoa  - program UID or alias
-              (deps)       - pre-resolved deps
-              (env)        - compile/run environment
-              (cmd)        - if !='', use as cmd_key
-              (quiet)      - if 'yes', do not ask to press enter
-              (title)      - print title (and record to log)
-              (results)    - dict with results
-              (key)        - key to check results
+              program_uoa       - program UID or alias
+
+              (deps)            - pre-resolved deps
+              (env)             - compile/run environment
+              (cmd)             - if !='', use as cmd_key
+
+              (quiet)           - if 'yes', do not ask to press enter
+              (title)           - print title (and record to log)
+
+              (results)         - dict with results
+              (key)             - key to check results
+
+              (record)          - if 'yes', record results
+              (record_repo_uoa) - repo where to record
+              (record_data_uoa) - data where to record
+              (os_abi)          - OS ABI to record in dict
             }
 
     Output: {
@@ -108,6 +116,10 @@ def experiment(i):
     q=i.get('quiet','')
     title=i.get('title','')
     subtitle=i.get('subtitle','')
+
+    rec=i.get('record','')
+    rruoa=i.get('record_repo_uoa','')
+    rduoa=i.get('record_data_uoa','')
 
     if title!='':
         log({'string':line, 'out':'yes',})
@@ -133,7 +145,9 @@ def experiment(i):
     deps=i.get('deps',{})
 
     key=i.get('key','')
-    results=i.get('results',{})
+    os_abi=i.get('os_abi','')
+    dd=i.get('results',{})
+    results=dd.get(os_abi,{})
 
     cmd=i.get('cmd','')
 
@@ -153,7 +167,7 @@ def experiment(i):
 
     # Run program N times (to analyze variation)
     times=[]
-    for x in range(0,1):
+    for x in range(0,3):
         ck.out(line1)
         ck.out('Running program ('+str(x+1)+' out of 3) ...')
         ck.out('')
@@ -176,23 +190,46 @@ def experiment(i):
     # Check some stats (later move to CK)
     tmin=float(min(times))
     tmax=float(max(times))
+    tmean=float(sum(times))/max(len(times),1)
 
     stmin='%.3f' % tmin
     stmax='%.3f' % tmax
+    stmean='%.3f' % tmean
 
     # Check if results exist:
     estmin='' # expected min
     estmax='' # expected max
+    estmean='' # expected max
     if key!='':
        x=results.get(key,{}).get('stmin','')
        if x!='': estmin=' (from paper: '+x+')'
        x=results.get(key,{}).get('stmax','')
        if x!='': estmax=' (from paper: '+x+')'
+       x=results.get(key,{}).get('stmean','')
+       if x!='': estmean=' (from paper: '+x+')'
+
+       if rec=='yes':
+          if key not in results:
+             results[key]={}
+          results[key]['stmin']=stmin
+          results[key]['stmax']=stmax
+          results[key]['stmean']=stmean
+
+          # Update result entry
+          r=ck.access({'action':'update',
+                       'module_uoa':cfg['module_deps']['result'],
+                       'repo_uoa':rruoa,
+                       'data_uoa':rduoa,
+                       'substitute':'yes',
+                       'ignore_update':'yes',
+                       'dict':dd})
+          if r['return']>0: return r
 
     # Print
     log({'string':'', 'out':'yes'})
-    log({'string':'Min execution time: '+stmin+estmin, 'out':'yes'})
-    log({'string':'Max execution time: '+stmax+estmax, 'out':'yes'})
+    log({'string':'Min  execution time: '+stmin+estmin, 'out':'yes'})
+    log({'string':'Max  execution time: '+stmax+estmax, 'out':'yes'})
+    log({'string':'Mean execution time: '+stmean+estmean, 'out':'yes'})
 
     return {'return':0, 'times':times, 'tmin':tmin, 'tmax':tmax, 'stmin':stmin, 'stmax':stmax}
 
@@ -203,6 +240,7 @@ def run(i):
     """
     Input:  {
               (quiet)  - if 'yes', do not ask questions (useful to save output)
+              (record) - if 'yes', record results
             }
 
     Output: {
@@ -219,6 +257,7 @@ def run(i):
     if o=='con': oo=o
 
     q=i.get('quiet','')
+    rec=i.get('record','')
 
     # Get platform features
     ck.out(line)
@@ -281,9 +320,11 @@ def run(i):
                  'module_uoa':cfg['module_deps']['result'],
                  'data_uoa':cfg['pre-recorded-result-uoa']})
     if r['return']>0: return r
-    results=r['dict'].get(os_abi,{})
+    rruid=r['repo_uid']
+    rduid=r['data_uid']
+    results=r['dict']
 
-    if len(results)==0:
+    if len(results.get(os_abi,{}))==0:
         ck.out('')
         ck.out('We do not have pre-recorded results for your host OS ('+os_abi+') to perform comparison!')
 
@@ -327,7 +368,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-is'],
                   'env':{'CK_COMPILE_TYPE':'no'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'Reproducing experiments for Figure 2',
                   'subtitle':'Validating nas-is no prefetching:',
                   'key':'figure-2-nas-is-no-prefetching', 'results':results})
@@ -339,7 +380,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-is'],
                   'env':{'CK_COMPILE_TYPE':'offset-64-nostride'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating nas-is intuitive:',
                   'key':'figure-2-nas-is-offset-64-nostride', 'results':results})
@@ -351,7 +392,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-is'],
                   'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating nas-is small:',
                   'key':'figure-2-nas-is-offset-2', 'results':results})
@@ -363,7 +404,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-is'],
                   'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2048},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating nas-is big:',
                   'key':'figure-2-nas-is-offset-2048', 'results':results})
@@ -373,9 +414,9 @@ def run(i):
 
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
                   'program_uoa':cfg['programs_uoa']['nas-is'],
-                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2048},
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':64},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating nas-is best:',
                   'key':'figure-2-nas-is-offset-64', 'results':results})
@@ -393,7 +434,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-cg'],
                   'env':{'CK_COMPILE_TYPE':'no'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'Reproducing experiments for Figure 4',
                   'subtitle':'Validating nas-cg no prefetching:',
                   'key':'figure-4-nas-cg-no-prefetching', 'results':results})
@@ -405,7 +446,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-cg'],
                   'env':{'CK_COMPILE_TYPE':'auto'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating nas-cg auto prefetching:',
                   'key':'figure-4-nas-cg-auto', 'results':results})
@@ -417,7 +458,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-cg'],
                   'env':{'CK_COMPILE_TYPE':'man'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating nas-cg manual prefetching:',
                   'key':'figure-4-nas-cg-man', 'results':results})
@@ -431,7 +472,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-is'],
                   'env':{'CK_COMPILE_TYPE':'no'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating nas-is no prefetching:',
                   'key':'figure-4-nas-is-no-prefetching', 'results':results})
@@ -443,7 +484,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-is'],
                   'env':{'CK_COMPILE_TYPE':'auto'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating nas-is auto prefetching:',
                   'key':'figure-4-nas-is-auto', 'results':results})
@@ -455,7 +496,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['nas-is'],
                   'env':{'CK_COMPILE_TYPE':'man'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating nas-is manual prefetching:',
                   'key':'figure-4-nas-is-man', 'results':results})
@@ -469,7 +510,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['randacc'],
                   'env':{'CK_COMPILE_TYPE':'no'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating randacc no prefetching:',
                   'key':'figure-4-randacc-no-prefetching', 'results':results})
@@ -481,7 +522,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['randacc'],
                   'env':{'CK_COMPILE_TYPE':'auto'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating randacc auto prefetching:',
                   'key':'figure-4-randacc-auto', 'results':results})
@@ -493,7 +534,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['randacc'],
                   'env':{'CK_COMPILE_TYPE':'man'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating randacc manual prefetching:',
                   'key':'figure-4-randacc-man', 'results':results})
@@ -507,7 +548,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['hashjoin-ph-2'],
                   'env':{'CK_COMPILE_TYPE':'no'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating hashjoin-ph-2 no prefetching:',
                   'key':'figure-4-hashjoin-ph-2-no-prefetching', 'results':results})
@@ -519,7 +560,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['hashjoin-ph-2'],
                   'env':{'CK_COMPILE_TYPE':'auto'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating hashjoin-ph-2 auto prefetching:',
                   'key':'figure-4-hashjoin-ph-2-auto', 'results':results})
@@ -531,7 +572,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['hashjoin-ph-2'],
                   'env':{'CK_COMPILE_TYPE':'man'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating hashjoin-ph-2 manual prefetching:',
                   'key':'figure-4-hashjoin-ph-2-man', 'results':results})
@@ -545,7 +586,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['hashjoin-ph-8'],
                   'env':{'CK_COMPILE_TYPE':'no'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating hashjoin-ph-8 no prefetching:',
                   'key':'figure-4-hashjoin-ph-8-no-prefetching', 'results':results})
@@ -557,7 +598,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['hashjoin-ph-8'],
                   'env':{'CK_COMPILE_TYPE':'auto'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating hashjoin-ph-8 auto prefetching:',
                   'key':'figure-4-hashjoin-ph-8-auto', 'results':results})
@@ -569,7 +610,7 @@ def run(i):
                   'program_uoa':cfg['programs_uoa']['hashjoin-ph-8'],
                   'env':{'CK_COMPILE_TYPE':'man'},
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating hashjoin-ph-8 manual prefetching:',
                   'key':'figure-4-hashjoin-ph-8-man', 'results':results})
@@ -585,7 +626,7 @@ def run(i):
                   'env':{'CK_COMPILE_TYPE':'no'},
                   'cmd':'s16e10',
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating graph500 no prefetching:',
                   'key':'figure-4-graph500-s16-no-prefetching', 'results':results})
@@ -598,7 +639,7 @@ def run(i):
                   'env':{'CK_COMPILE_TYPE':'auto'},
                   'cmd':'s16e10',
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating graph500 auto prefetching:',
                   'key':'figure-4-graph500-s16-auto', 'results':results})
@@ -611,7 +652,7 @@ def run(i):
                   'env':{'CK_COMPILE_TYPE':'man-inorder'},
                   'cmd':'s16e10',
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating graph500 manual in order prefetching:',
                   'key':'figure-4-graph500-s16-man-inorder', 'results':results})
@@ -624,7 +665,7 @@ def run(i):
                   'env':{'CK_COMPILE_TYPE':'man-outoforder'},
                   'cmd':'s16e10',
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating graph500 manual out of order prefetching:',
                   'key':'figure-4-graph500-s16-man-outoforder', 'results':results})
@@ -639,7 +680,7 @@ def run(i):
                   'env':{'CK_COMPILE_TYPE':'no'},
                   'cmd':'s21e10',
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating graph500 no prefetching:',
                   'key':'figure-4-graph500-s21-no-prefetching', 'results':results})
@@ -652,7 +693,7 @@ def run(i):
                   'env':{'CK_COMPILE_TYPE':'auto'},
                   'cmd':'s21e10',
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating graph500 auto prefetching:',
                   'key':'figure-4-graph500-s21-auto', 'results':results})
@@ -665,7 +706,7 @@ def run(i):
                   'env':{'CK_COMPILE_TYPE':'man-inorder'},
                   'cmd':'s21e10',
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating graph500 manual in order prefetching:',
                   'key':'figure-4-graph500-s21-man-inorder', 'results':results})
@@ -678,7 +719,7 @@ def run(i):
                   'env':{'CK_COMPILE_TYPE':'man-outoforder'},
                   'cmd':'s21e10',
                   'deps':deps,
-                  'quiet':q,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
                   'title':'',
                   'subtitle':'Validating graph500 manual out of order prefetching:',
                   'key':'figure-4-graph500-s21-man-outoforder', 'results':results})
@@ -687,5 +728,405 @@ def run(i):
         log({'string':'Experiment failed ('+r['error']+')'})
 
 
+    # Reproducing Figure 5 ###################################################################################
+
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-cg'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'Reproducing experiments for Figure 5',
+                  'subtitle':'Validating nas-cg no prefetching:',
+                  'key':'figure-5-nas-cg-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-cg'],
+                  'env':{'CK_COMPILE_TYPE':'auto'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating nas-cg auto prefetching:',
+                  'key':'figure-5-nas-cg-auto', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-cg'],
+                  'env':{'CK_COMPILE_TYPE':'auto-nostride'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating nas-cg auto-nostride prefetching:',
+                  'key':'figure-5-nas-cg-auto-nostride', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating nas-is no prefetching:',
+                  'key':'figure-5-nas-is-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'auto'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating nas-is auto prefetching:',
+                  'key':'figure-5-nas-is-auto', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'auto-nostride'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating nas-is auto-nostride prefetching:',
+                  'key':'figure-5-nas-is-auto-nostride', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['randacc'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating randacc no prefetching:',
+                  'key':'figure-5-randacc-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['randacc'],
+                  'env':{'CK_COMPILE_TYPE':'auto'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating randacc auto prefetching:',
+                  'key':'figure-5-randacc-auto', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['randacc'],
+                  'env':{'CK_COMPILE_TYPE':'auto-nostride'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating randacc auto-nostride prefetching:',
+                  'key':'figure-5-randacc-auto-nostride', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-2'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating hashjoin-ph-2 no prefetching:',
+                  'key':'figure-5-hashjoin-ph-2-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-2'],
+                  'env':{'CK_COMPILE_TYPE':'auto'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating hashjoin-ph-2 auto prefetching:',
+                  'key':'figure-5-hashjoin-ph-2-auto', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-2'],
+                  'env':{'CK_COMPILE_TYPE':'auto-nostride'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating hashjoin-ph-2 auto-nostride prefetching:',
+                  'key':'figure-5-hashjoin-ph-2-auto-nostride', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-8'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating hashjoin-ph-8 no prefetching:',
+                  'key':'figure-5-hashjoin-ph-8-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-8'],
+                  'env':{'CK_COMPILE_TYPE':'auto'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating hashjoin-ph-8 auto prefetching:',
+                  'key':'figure-5-hashjoin-ph-8-auto', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-8'],
+                  'env':{'CK_COMPILE_TYPE':'auto-nostride'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating hashjoin-ph-8 auto-nostride prefetching:',
+                  'key':'figure-5-hashjoin-ph-8-auto-nostride', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['graph500'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'cmd':'s16e10',
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating graph500 no prefetching:',
+                  'key':'figure-5-graph500-s16-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['graph500'],
+                  'env':{'CK_COMPILE_TYPE':'auto'},
+                  'cmd':'s16e10',
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating graph500 auto prefetching:',
+                  'key':'figure-5-graph500-s16-auto', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['graph500'],
+                  'env':{'CK_COMPILE_TYPE':'auto-nostride'},
+                  'cmd':'s16e10',
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating graph500 auto-nostride prefetching:',
+                  'key':'figure-5-graph500-s16-auto-nostride', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['graph500'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'cmd':'s21e10',
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating graph500 no prefetching:',
+                  'key':'figure-5-graph500-s21-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['graph500'],
+                  'env':{'CK_COMPILE_TYPE':'auto'},
+                  'cmd':'s21e10',
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating graph500 auto prefetching:',
+                  'key':'figure-5-graph500-s21-auto', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['graph500'],
+                  'env':{'CK_COMPILE_TYPE':'auto-nostride'},
+                  'cmd':'s21e10',
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating graph500 auto-nostride prefetching:',
+                  'key':'figure-5-graph500-s21-auto-nostride', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    # Reproducing Figure 6 ###################################################################################
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'Reproducing experiments for Figure 5',
+                  'subtitle':'Validating nas-is no prefetching:',
+                  'key':'figure-6-nas-is-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    for x in [2, 4, 8, 16, 32, 64, 128, 256]:
+            r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':str(x)},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating nas-is prefetching distance: ' + str(x),
+                  'key':'figure-6-nas-is-prefetching-dist-' + str(x), 'results':results})
+            if r['return']>0:
+                log({'string':''})
+                log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-cg'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating nas-cg no prefetching:',
+                  'key':'figure-6-nas-cg-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    for x in [2, 4, 8, 16, 32, 64, 128, 256]:
+            r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-cg'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':str(x)},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating nas-cg prefetching distance: ' + str(x),
+                  'key':'figure-6-nas-cg-prefetching-dist-' + str(x), 'results':results})
+            if r['return']>0:
+                log({'string':''})
+                log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['randacc'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating randacc no prefetching:',
+                  'key':'figure-6-randacc-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    for x in [2, 4, 8, 16, 32, 64, 128, 256]:
+            r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['randacc'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':str(x)},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating randacc prefetching distance: ' + str(x),
+                  'key':'figure-6-randacc-prefetching-dist-' + str(x), 'results':results})
+            if r['return']>0:
+                log({'string':''})
+                log({'string':'Experiment failed ('+r['error']+')'})
+
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-2'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating hashjoin-ph-2 no prefetching:',
+                  'key':'figure-6-hashjoin-ph-2-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+
+    for x in [2, 4, 8, 16, 32, 64, 128, 256]:
+            r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-2'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':str(x)},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating hashjoin-ph-2 prefetching distance: ' + str(x),
+                  'key':'figure-6-hashjoin-ph-2-prefetching-dist-' + str(x), 'results':results})
+            if r['return']>0:
+                log({'string':''})
+                log({'string':'Experiment failed ('+r['error']+')'})
+
+    # Reproducing Figure 7 ###################################################################################
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-8'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'Reproducing Experiments for Figure 7',
+                  'subtitle':'Validating hashjoin-ph-8 no prefetching:',
+                  'key':'figure-7-hashjoin-ph-8-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+
+    for x in [1, 2, 3, 4]:
+            r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['hashjoin-ph-8'],
+                  'env':{'CK_COMPILE_TYPE':'prefetches', 'CK_NUMPREFETCHES':str(x)},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'',
+                  'subtitle':'Validating hashjoin-ph-8 prefetching elements: ' + str(x),
+                  'key':'figure-7-hashjoin-ph-8-prefetching-elements-' + str(x), 'results':results})
+            if r['return']>0:
+                log({'string':''})
+                log({'string':'Experiment failed ('+r['error']+')'})
 
     return {'return':0}
