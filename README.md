@@ -63,7 +63,9 @@ By default, the script above waits for user input at the end of each experiment.
 $ ck run workflow-from-cgo2017-paper --quiet
 ```
 
-If any unexpected behavior is observed, please report it to the author.
+Results will be output to ck-log-reproduce-results-from-cgo2017-paper.txt, in the current directory.
+
+If any unexpected behavior is observed, please report it to the authors.
 
 
 Manual validation (if problems with CK)
