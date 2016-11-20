@@ -1,0 +1,9 @@
+{
+ "x86_64":{
+ },
+ "armv7l":{
+   "figure-2-nas-is-no-prefetching":{"stmin":"0.12", "stmax":"0.13"}
+ },
+ "aarch64":{
+ }
+}

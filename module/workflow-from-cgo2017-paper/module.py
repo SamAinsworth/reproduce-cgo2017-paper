@@ -83,9 +83,12 @@ def experiment(i):
 
     Input:  {
               program_uoa  - program UID or alias
+              (deps)       - pre-resolved deps
               (env)        - compile/run environment
               (quiet)      - if 'yes', do not ask to press enter
               (title)      - print title (and record to log)
+              (results)    - dict with results
+              (key)        - key to check results
             }
 
     Output: {
@@ -126,6 +129,11 @@ def experiment(i):
     puoa=i['program_uoa']
     env=i.get('env',{})
 
+    deps=i.get('deps',{})
+
+    key=i.get('key','')
+    results=i.get('results',{})
+
     # Compile program
     ck.out('')
     ck.out('Compiling program ...')
@@ -134,6 +142,7 @@ def experiment(i):
     r=ck.access({'action':'compile',
                  'module_uoa':cfg['module_deps']['program'],
                  'data_uoa':puoa,
+                 'deps':deps,
                  'speed':'yes',
                  'env':env,
                  'out':oo})
@@ -167,10 +176,19 @@ def experiment(i):
     stmin='%.2f' % tmin
     stmax='%.2f' % tmax
 
+    # Check if results exist:
+    estmin='' # expected min
+    estmax='' # expected max
+    if key!='':
+       x=results.get(key,{}).get('stmin','')
+       if x!='': estmin=' (from paper: '+x+')'
+       x=results.get(key,{}).get('stmax','')
+       estmax=' (from paper: '+x+')'
+
     # Print
     log({'string':'', 'out':'yes'})
-    log({'string':'Min execution time: '+stmin, 'out':'yes'})
-    log({'string':'Max execution time: '+stmax, 'out':'yes'})
+    log({'string':'Min execution time: '+stmin+estmin, 'out':'yes'})
+    log({'string':'Max execution time: '+stmax+estmax, 'out':'yes'})
 
     return {'return':0, 'times':times, 'tmin':tmin, 'tmax':tmax, 'stmin':stmin, 'stmax':stmax}
 
@@ -254,9 +272,16 @@ def run(i):
     else:
         ck.out('Detected host OS ABI: '+os_abi)
 
-        if os_abi=='x86_64' or os_abi=='armv7l' or os_abi=='aarch64':
-            ck.out('')
-            ck.out('We have pre-recorded results for your host OS and will perform comparison!')
+    # Pre-load results
+    r=ck.access({'action':'load',
+                 'module_uoa':cfg['module_deps']['result'],
+                 'data_uoa':cfg['pre-recorded-result-uoa']})
+    if r['return']>0: return r
+    results=r['dict'].get(os_abi,{})
+
+    if len(results)==0:
+        ck.out('')
+        ck.out('We do not have pre-recorded results for your host OS ('+os_abi+') to perform comparison!')
 
     ck.out('')
     if q!='yes': r=ck.inp({'text':'Press Enter to continue!'})
@@ -287,14 +312,26 @@ def run(i):
     if rx['return']>0: return rx
 
     # Reproducing Figure 2 ###################################################################################
-    exp='figure-2-nas-is-no-prefetching'
-
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
                   'program_uoa':cfg['programs_uoa']['nas-is'],
                   'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
                   'quiet':q,
                   'title':'Reproducing experiments for Figure 2',
-                  'subtitle':'Validating NAS-IS no prefetching:'})
+                  'subtitle':'Validating NAS-IS no prefetching:',
+                  'key':'figure-2-nas-is-no-prefetching', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'offset-64-nostride'},
+                  'deps':deps,
+                  'quiet':q,
+                  'title':'',
+                  'subtitle':'Validating NAS-IS intuitive:',
+                  'key':'figure-2-nas-offset-64-nostride', 'results':results})
     if r['return']>0:
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
