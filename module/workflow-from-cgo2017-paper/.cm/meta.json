@@ -18,8 +18,10 @@
     "nas-is":"773bfa4c148d98dc",
     "randacc":"04810be822e46a1f"
   },
+  "pre-recorded-result-uoa":"ea230d43999f3dee",
   "module_deps": {
     "env": "9b9b3208ac44b891", 
+    "result": "4cd2850867df4241",
     "platform": "707ccdfe444cafac",
     "program":"b0ac08fe1d3c2615"
   }

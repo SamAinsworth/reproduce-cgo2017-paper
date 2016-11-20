@@ -183,7 +183,7 @@ def experiment(i):
        x=results.get(key,{}).get('stmin','')
        if x!='': estmin=' (from paper: '+x+')'
        x=results.get(key,{}).get('stmax','')
-       estmax=' (from paper: '+x+')'
+       if x!='': estmax=' (from paper: '+x+')'
 
     # Print
     log({'string':'', 'out':'yes'})
@@ -336,7 +336,41 @@ def run(i):
         log({'string':''})
         log({'string':'Experiment failed ('+r['error']+')'})
 
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2},
+                  'deps':deps,
+                  'quiet':q,
+                  'title':'',
+                  'subtitle':'Validating NAS-IS small:',
+                  'key':'figure-2-nas-offset-2', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
 
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2048},
+                  'deps':deps,
+                  'quiet':q,
+                  'title':'',
+                  'subtitle':'Validating NAS-IS big:',
+                  'key':'figure-2-nas-offset-2048', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
+
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'offset', 'CK_FETCHDIST':2048},
+                  'deps':deps,
+                  'quiet':q,
+                  'title':'',
+                  'subtitle':'Validating NAS-IS best:',
+                  'key':'figure-2-nas-offset-64', 'results':results})
+    if r['return']>0:
+        log({'string':''})
+        log({'string':'Experiment failed ('+r['error']+')'})
 
 
 
