@@ -10,7 +10,7 @@
       "local": "yes",
       "name": "C compiler",
       "sort": 10,
-      "tags": "compiler,lang-c,llvm"
+      "tags": "compiler,lang-c,llvm,v3.9.0-ck-package"
     },
     "sw-prefetch-no-strides-plugin": {
       "force_env_init": "yes",
@@ -46,6 +46,8 @@
     "s16e10": {
       "ignore_return_code": "no",
       "run_time": {
+        "post_process_via_ck": "yes", 
+        "post_process_cmd": "python $#src_path_local#$/ck_postprocess_time.py",
         "run_cmd_main": "$#BIN_FILE#$ -s 16 -e 10",
         "run_cmd_out1": "tmp-output1.tmp",
         "run_cmd_out2": "tmp-output2.tmp"
@@ -54,6 +56,8 @@
     "s21e10": {
       "ignore_return_code": "no",
       "run_time": {
+        "post_process_via_ck": "yes", 
+        "post_process_cmd": "python $#src_path_local#$/ck_postprocess_time.py",
         "run_cmd_main": "$#BIN_FILE#$ -s 21 -e 10",
         "run_cmd_out1": "tmp-output1.tmp",
         "run_cmd_out2": "tmp-output2.tmp"

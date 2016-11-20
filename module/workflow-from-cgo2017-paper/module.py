@@ -177,8 +177,8 @@ def experiment(i):
     tmin=float(min(times))
     tmax=float(max(times))
 
-    stmin='%.2f' % tmin
-    stmax='%.2f' % tmax
+    stmin='%.3f' % tmin
+    stmax='%.3f' % tmax
 
     # Check if results exist:
     estmin='' # expected min
