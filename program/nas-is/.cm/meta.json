@@ -10,7 +10,7 @@
       "local": "yes",
       "name": "C compiler",
       "sort": 10,
-      "tags": "compiler,lang-c,llvm"
+      "tags": "compiler,lang-c,llvm,v3.9.0-ck-package"
     },
     "sw-prefetch-no-strides-plugin": {
       "force_env_init": "yes",
