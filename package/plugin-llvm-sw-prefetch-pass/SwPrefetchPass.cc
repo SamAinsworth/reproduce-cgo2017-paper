@@ -26,7 +26,7 @@
 
 #include <llvm/Support/Debug.h>
 
-#ifdef NO_STIDES
+#ifdef NO_STRIDES
 #define C_CONSTANT (32)
 #else
 #define C_CONSTANT (64)
@@ -495,9 +495,9 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
 
                             if(loads < 2) {
                                 dbgs()<<"stride\n";    //don't remove the stride cases yet though. Only remove them once we know it's not in a sequence with an indirect.
-#ifdef NO_STIDES
+#ifdef NO_STRIDES
                                 //add a continue in here to avoid generating strided prefetches. Make sure to reduce the value of C accordingly!
-                                continue
+                                continue;
 #endif
                             }
 
