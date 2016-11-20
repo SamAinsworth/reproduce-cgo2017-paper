@@ -12,7 +12,7 @@
     "compiler": {
       "local": "yes",
       "name": "C++ compiler",
-      "tags": "compiler,lang-cpp,llvm"
+      "tags": "compiler,lang-cpp,llvm,v3.9.0-ck-package"
     }
   },
   "end_full_path": {
