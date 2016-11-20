@@ -1,0 +1,36 @@
+{
+  "customize": {
+    "env_extra": "_SW_PREFETCH_NO_STRIDES_PASS",
+    "extra_dir": "",
+    "version": "0.1",
+    "install_env": {
+      "CK_PLUGIN_OUT": "SwPrefetchPass_noStrides",
+      "CK_NO_STRIDES": "1"
+    }
+  },
+  "deps": {
+    "compiler": {
+      "local": "yes",
+      "name": "C++ compiler",
+      "tags": "compiler,lang-cpp,llvm"
+    }
+  },
+  "end_full_path": {
+    "android": "lib$#sep#$SwPrefetchPass_noStrides.so",
+    "linux": "lib/SwPrefetchPass_noStrides.so",
+    "mingw": "lib\\SwPrefetchPass_noStrides.so",
+    "win": "lib\\SwPrefetchPass_noStrides.so"
+  },
+  "process_script": "compile",
+  "soft_uoa": "cb5940a8eba4fe8b",
+  "suggested_path": "plugin-llvm-sw-prefetch-no-strides-pass",
+  "tags": [
+    "plugin",
+    "compiler-plugin",
+    "llvm",
+    "sw-prefetch-no-strides-pass"
+  ],
+  "use_scripts_from_another_entry": {
+    "data_uoa": "3468db6b2578ff7d"
+  }
+}

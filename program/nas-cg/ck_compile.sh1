@@ -1,0 +1,13 @@
+#! /bin/bash
+
+rm -f ./a.out *.o
+
+CK_NAS_COMMON=`ck find program:42f28f884842c988`
+echo $CKNAS_COMMON
+
+echo "Prefecth distance: ${CK_FETCHDIST}"
+
+EXECUTE="$CK_CC $CK_COMPILER_FLAGS_OBLIGATORY $CK_PROG_COMPILER_FLAGS -DFETCHDIST=${CK_FETCHDIST} ${CK_NAS_COMMON}/c_print_results.c ${CK_NAS_COMMON}/c_timers.c ${CK_NAS_COMMON}/wtime.c ${CK_NAS_COMMON}/c_randdp.c ../cg.c -lm"
+
+echo "$EXECUTE"
+$EXECUTE

@@ -1,0 +1,66 @@
+{
+  "backup_data_uid": "2544fd86ec43416d",
+  "compile_cmds": {
+    "default": {
+      "cmd": "bash ../ck_compile$#script_ext#$"
+    }
+  },
+  "compile_deps": {
+    "compiler": {
+      "local": "yes",
+      "name": "C compiler",
+      "sort": 10,
+      "tags": "compiler,lang-c,llvm"
+    },
+    "sw-prefetch-no-strides-plugin": {
+      "force_env_init": "yes",
+      "local": "yes",
+      "name": "SW Prefetch no strides plugin",
+      "sort": 30,
+      "tags": "compiler-plugin,llvm,sw-prefetch-no-strides-pass"
+    },
+    "sw-prefetch-plugin": {
+      "force_env_init": "yes",
+      "local": "yes",
+      "name": "SW Prefetch plugin",
+      "sort": 20,
+      "tags": "compiler-plugin,llvm,sw-prefetch-pass"
+    }
+  },
+  "data_name": "NAS CG (modified for CGO 2017 paper 'Software Prefetching for Indirect Memory Accesses')",
+  "main_language": "c",
+  "misc": {
+    "available_types": [
+      "auto",
+      "auto-nostride",
+      "man",
+      "offset",
+      "offset-64-nostride",
+      "no"
+    ]
+  },
+  "process_in_tmp": "yes",
+  "program": "yes",
+  "run_cmds": {
+    "default": {
+      "ignore_return_code": "no",
+      "run_time": {
+        "run_cmd_main": "$#BIN_FILE#$",
+        "run_cmd_out1": "tmp-output1.tmp",
+        "run_cmd_out2": "tmp-output2.tmp"
+      }
+    }
+  },
+  "print_files_after_run": [
+    "tmp-output1.tmp",
+    "tmp-output2.tmp"
+  ], 
+  "tags": [
+    "program",
+    "ae",
+    "cgo2017",
+    "sw-prefetch"
+  ],
+  "target_file": "a",
+  "use_compile_script": "yes"
+}

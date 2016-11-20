@@ -1,0 +1,15 @@
+{
+   "data_uid": "640f0b9dadc5bfda",
+   "data_name": "Artifacts to reproduce experiments from CGO 2017 paper by S.Ainsworth and T.M.Jones 'Software Prefetching for Indirect Memory Accesses'",
+   "dict": {
+     "url": "https://github.com/SamAinsworth/reproduce-cgo2017-paper",
+     "shared": "git",
+     "repo_deps": [
+       {
+         "repo_uoa": "ck-autotuning"
+       }
+     ]
+   },
+   "data_alias": "reproduce-cgo2017-paper",
+   "data_uoa": "reproduce-cgo2017-paper"
+}
