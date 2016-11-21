@@ -168,7 +168,7 @@ The software prefetching shared object pass can also be compiled and installed u
 Troubleshooting
 ===============
 
-Issues with GLIBCXX_3.4.20/3.4.21 when using LLVM installed by CK: These sometimes occur on earlier Ubuntu versions (14.04) on ARM/x86. This can be fixed by upgrading to later versions of Ubuntu, or can sometimes be fixed by:
+Issues with GLIBCXX_3.4.20/3.4.21 when using LLVM installed via CK: These sometimes occur on earlier Ubuntu versions (14.04) on ARM/x86. This can be fixed by upgrading to later versions of Ubuntu, or can sometimes be fixed by:
 
 ```
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -177,12 +177,8 @@ sudo apt-get upgrade
 sudo apt-get dist-upgrade
 ```
 
+Issues with libncursesw.so.6 (not found) on some older machines: It can be fixed by compiling and installing lib-ncurses with the support for wide characters. This can be done automatically via CK:
 
-Issues on ARM32 with libncurse: Though we do not officially support ARM32 yet, we have noticed the following error on some systems:
-
-"clang-3.9: error while loading shared libraries: libncursesw.so.6: cannot open shared object file: No such file or directory"
-
-This can be fixed using
 
 ```
 $ ck install package:lib-ncurses-6.0-root
