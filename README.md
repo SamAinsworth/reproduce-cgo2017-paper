@@ -118,7 +118,7 @@ This work was supported by the Engineering and Physical Sciences Research Counci
 Troubleshooting
 ===============
 
-Issues with GLIBCXX_3.4.20/3.4.21 when using CK: These sometimes occur on earlier Ubuntu versions (14.04) on ARM/x86. This can be fixed by upgrading to later versions of Ubuntu, or can sometimes be fixed by:
+* Issues with GLIBCXX_3.4.20/3.4.21 when using LLVM installed via CK: These sometimes occur on earlier Ubuntu versions (14.04) on ARM/x86. This can be fixed by upgrading to later versions of Ubuntu, or can sometimes be fixed by:
 
 ```
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -127,3 +127,10 @@ sudo apt-get upgrade
 sudo apt-get dist-upgrade
 ```
 
+* Issues with libncursesw.so.6 (not found) on some older machines.
+
+It can be fixed by compiling and installing lib-ncurses with the support for wide characters. It can be done automatically via CK:
+
+```
+$ ck install package:lib-ncurses-6.0-root
+```
