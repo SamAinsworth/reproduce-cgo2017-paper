@@ -33,6 +33,10 @@ Installation
 You can install this repository via CK as follows:
 $ ck pull repo --url=https://github.com/SamAinsworth/reproduce-cgo2017-paper
 
+If you already have CK installed, please update before use:
+
+$ck pull all
+
 Testing installation
 ====================
 
@@ -63,10 +67,20 @@ By default, the script above waits for user input at the end of each experiment.
 $ ck run workflow-from-cgo2017-paper --quiet
 ```
 
-Results will be output to ck-log-reproduce-results-from-cgo2017-paper.txt, in the current directory.
+If any unexpected behaviour is observed, please report it to the authors.
 
-If any unexpected behavior is observed, please report it to the authors.
+Validation of results
+====================================================
 
+Results will be output to ck-log-reproduce-results-from-cgo2017-paper.txt, in the directory in which you run the workflow.
+
+This file will include the results observed on your machine, and those observed on either Haswell or A57 for reference, depending on your target ISA.
+
+While we do not expect absolute values to match, it is expected that overall trends, as shown in the related figures (2,4-7) within the paper, will match up depending on your microarchitecture.
+
+Please note that the reference results on ARM64 systems when running on in-order architectures such at the A53 will still be from the A57, so are not expected to match up directly: you should instead compare ratios given in the paper itself.
+
+If anything in unclear, or any unexpected results occur, please report it to the authors.
 
 Manual validation (if problems with CK)
 =======================================
@@ -115,15 +129,62 @@ Acknowledgments
 ===============
 This work was supported by the Engineering and Physical Sciences Research Council (EPSRC), through grant references EP/K026399/1 and EP/M506485/1, and ARM Ltd.
 
+
+Customisation 
+===============
+
+Our CK integration allows customization of both benchmarks and settings. New workflows can be added in the style exhibited by module/workflow-from-cgo-paper/module.py:
+
+```
+    r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
+                  'program_uoa':cfg['programs_uoa']['nas-is'],
+                  'env':{'CK_COMPILE_TYPE':'no'},
+                  'deps':deps,
+                  'quiet':q, 'record':rec, 'record_repo_uoa':rruid, 'record_data_uoa':rduid, 'os_abi':os_abi,
+                  'title':'Reproducing experiments for Figure 2',
+                  'subtitle':'Validating nas-is no prefetching:',
+                  'key':'figure-2-nas-is-no-prefetching', 'results':results})
+```
+
+CK_COMPILE_TYPE can be configured as "no", "auto", "auto-nostride" or "man" to run the relevant experiment. The behaviour of each of these is specified in the ck_compile.sh included in each benchmark. The program can be specified in cfg, output text in title and subtitle, and new results output and optionally stored (--record) using JSON with a new "key".
+
+
+Similarly, benchmarks can be compiled and run individually, for example:
+
+```
+$ ck compile program:nas-is --speed --env.CK_COMPILE_TYPE=auto
+$ ck run program:nas-is
+```
+
+The software prefetching shared object pass can also be compiled and installed using CK, then used separately:
+
+```
+	$ ck install package:plugin-llvm-sw-prefetch-pass
+	$ clang -Xclang -load -Xclang $(ck find package:plugin-llvm-sw-prefetch-pass) -O3 ...
+```
+
+
+
 Troubleshooting
 ===============
 
-Issues with GLIBCXX_3.4.20/3.4.21 when using CK: These sometimes occur on earlier Ubuntu versions (14.04) on ARM/x86. This can be fixed by upgrading to later versions of Ubuntu, or can sometimes be fixed by:
+Issues with GLIBCXX_3.4.20/3.4.21 when using LLVM installed by CK: These sometimes occur on earlier Ubuntu versions (14.04) on ARM/x86. This can be fixed by upgrading to later versions of Ubuntu, or can sometimes be fixed by:
 
 ```
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
+```
+
+
+Issues on ARM32 with libncurse: Though we do not officially support ARM32 yet, we have noticed the following error on some systems:
+
+"clang-3.9: error while loading shared libraries: libncursesw.so.6: cannot open shared object file: No such file or directory"
+
+This can be fixed using
+
+```
+$ ck install package:lib-ncurses-6.0-root
 ```
 

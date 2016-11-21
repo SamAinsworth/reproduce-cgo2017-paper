@@ -192,9 +192,9 @@ def experiment(i):
     tmax=float(max(times))
     tmean=float(sum(times))/max(len(times),1)
 
-    stmin='%.3f' % tmin
-    stmax='%.3f' % tmax
-    stmean='%.3f' % tmean
+    stmin='%.4f' % tmin
+    stmax='%.4f' % tmax
+    stmean='%.4f' % tmean
 
     # Check if results exist:
     estmin='' # expected min
