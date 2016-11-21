@@ -31,11 +31,17 @@ Installation
 ============
 
 You can install this repository via CK as follows:
+
+```
 $ ck pull repo --url=https://github.com/SamAinsworth/reproduce-cgo2017-paper
+```
 
 If you already have CK installed, please update before use:
 
-$ck pull all
+```
+$ ck pull all
+```
+
 
 Testing installation
 ====================
@@ -133,7 +139,7 @@ This work was supported by the Engineering and Physical Sciences Research Counci
 Customisation 
 ===============
 
-Our CK integration allows customization of both benchmarks and settings. New workflows can be added in the style exhibited by module/workflow-from-cgo-paper/module.py:
+Our CK integration allows customisation of both benchmarks and settings. New workflows can be added in the style exhibited by module/workflow-from-cgo-paper/module.py:
 
 ```
     r=experiment({'host_os':hos, 'target_os':tos, 'device_id':tdid, 'out':oo,
@@ -146,7 +152,7 @@ Our CK integration allows customization of both benchmarks and settings. New wor
                   'key':'figure-2-nas-is-no-prefetching', 'results':results})
 ```
 
-CK_COMPILE_TYPE can be configured as "no", "auto", "auto-nostride" or "man" to run the relevant experiment. The behaviour of each of these is specified in the ck_compile.sh included in each benchmark. The program can be specified in cfg, output text in title and subtitle, and new results output and optionally stored (--record) using JSON with a new "key".
+CK_COMPILE_TYPE can be configured as "no", "auto", "auto-nostride" or "man" to run the relevant experiment. The behaviour of each of these is specified in the ck_compile.sh included in each benchmark. Other customisable properties are available depending on the benchmark: see module.py for more details. The program can be specified in cfg, output text in title and subtitle, and new results output and optionally stored (--record) using JSON with a new "key".
 
 
 Similarly, benchmarks can be compiled and run individually, for example:
@@ -160,7 +166,7 @@ The software prefetching shared object pass can also be compiled and installed u
 
 ```
 	$ ck install package:plugin-llvm-sw-prefetch-pass
-	$ clang -Xclang -load -Xclang $(ck find package:plugin-llvm-sw-prefetch-pass) -O3 ...
+	$ clang -Xclang -load -Xclang $(ck find package:plugin-llvm-sw-prefetch-pass)/lib/SwPrefetchPass.so -O3 ...
 ```
 
 
