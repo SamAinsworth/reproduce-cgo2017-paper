@@ -39,7 +39,7 @@ Testing installation
 You can compile and run one of the benchmarks (NAS CG) with the LLVM plugin as follows:
 
 ```
-$ ck compile program:nas-cg --speed --env.CK_COMPILATION_TYPE=auto
+$ ck compile program:nas-cg --speed --env.CK_COMPILE_TYPE=auto
 ```
 
 ```

@@ -16,14 +16,15 @@
       "deps": {
         "compiler": {
           "detected_ver": "3.9.0", 
-          "sort": 10, 
           "bat": ". /home/ubuntu/CK/local/env/447c0a0b5fb205c1/env.sh\n", 
           "ver": "3.9.0", 
-          "name": "C compiler", 
-          "tags": "compiler,lang-c,llvm,v3.9.0-ck-package", 
+          "name": "C++ compiler", 
+          "tags": "compiler,lang-cpp,llvm,v3.9.0-ck-package", 
           "build_dir_name": "llvm", 
           "uoa": "447c0a0b5fb205c1", 
-          "choices": [], 
+          "choices": [
+            "447c0a0b5fb205c1"
+          ], 
           "num_entries": 1, 
           "dict": {
             "env_script": "env.sh", 
@@ -266,14 +267,15 @@
       "deps": {
         "compiler": {
           "detected_ver": "3.9.0", 
-          "sort": 10, 
           "bat": ". /home/ubuntu/CK/local/env/447c0a0b5fb205c1/env.sh\n", 
           "ver": "3.9.0", 
-          "name": "C compiler", 
-          "tags": "compiler,lang-c,llvm,v3.9.0-ck-package", 
+          "name": "C++ compiler", 
+          "tags": "compiler,lang-cpp,llvm,v3.9.0-ck-package", 
           "build_dir_name": "llvm", 
           "uoa": "447c0a0b5fb205c1", 
-          "choices": [], 
+          "choices": [
+            "447c0a0b5fb205c1"
+          ], 
           "num_entries": 1, 
           "dict": {
             "env_script": "env.sh", 

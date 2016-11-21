@@ -2,7 +2,23 @@
   "sw-prefetch-no-strides-plugin": {
     "sort": 30, 
     "bat": ". /home/ubuntu/CK/local/env/ed9c4cfc42ed96d3/env.sh 1\n", 
-    "ver": "0.1", 
+    "cus": {
+      "env_extra": "_SW_PREFETCH_NO_STRIDES_PASS", 
+      "skip_path": "yes", 
+      "version": "0.1", 
+      "add_to_path": "yes", 
+      "env_prefix": "CK_ENV_PLUGIN_LLVM", 
+      "extra_dir": "", 
+      "version_split": [
+        0, 
+        1
+      ], 
+      "install_env": {
+        "CK_PLUGIN_OUT": "SwPrefetchPass_noStrides", 
+        "CK_NO_STRIDES": "1"
+      }, 
+      "full_path": "/home/ubuntu/CK-TOOLS/plugin-llvm-sw-prefetch-no-strides-pass-0.1-llvm-3.9.0-linux-64/lib/SwPrefetchPass_noStrides.so"
+    }, 
     "name": "SW Prefetch no strides plugin", 
     "tags": "compiler-plugin,llvm,sw-prefetch-no-strides-pass", 
     "force_env_init": "yes", 
@@ -16,14 +32,15 @@
       "deps": {
         "compiler": {
           "detected_ver": "3.9.0", 
-          "sort": 10, 
           "bat": ". /home/ubuntu/CK/local/env/447c0a0b5fb205c1/env.sh\n", 
           "ver": "3.9.0", 
-          "name": "C compiler", 
-          "tags": "compiler,lang-c,llvm,v3.9.0-ck-package", 
+          "name": "C++ compiler", 
+          "tags": "compiler,lang-cpp,llvm,v3.9.0-ck-package", 
           "build_dir_name": "llvm", 
           "uoa": "447c0a0b5fb205c1", 
-          "choices": [], 
+          "choices": [
+            "447c0a0b5fb205c1"
+          ], 
           "num_entries": 1, 
           "dict": {
             "env_script": "env.sh", 
@@ -230,8 +247,14 @@
       }, 
       "soft_alias": "plugin.llvm"
     }, 
+    "ver": "0.1", 
+    "local": "yes"
+  }, 
+  "sw-prefetch-plugin": {
+    "sort": 20, 
+    "bat": ". /home/ubuntu/CK/local/env/da79d802e89822fa/env.sh 1\n", 
     "cus": {
-      "env_extra": "_SW_PREFETCH_NO_STRIDES_PASS", 
+      "env_extra": "_SW_PREFETCH_PASS", 
       "skip_path": "yes", 
       "version": "0.1", 
       "add_to_path": "yes", 
@@ -242,17 +265,11 @@
         1
       ], 
       "install_env": {
-        "CK_PLUGIN_OUT": "SwPrefetchPass_noStrides", 
-        "CK_NO_STRIDES": "1"
+        "CK_PLUGIN_OUT": "SwPrefetchPass", 
+        "CK_NO_STRIDES": "0"
       }, 
-      "full_path": "/home/ubuntu/CK-TOOLS/plugin-llvm-sw-prefetch-no-strides-pass-0.1-llvm-3.9.0-linux-64/lib/SwPrefetchPass_noStrides.so"
+      "full_path": "/home/ubuntu/CK-TOOLS/plugin-llvm-sw-prefetch-pass-0.1-llvm-3.9.0-linux-64/lib/SwPrefetchPass.so"
     }, 
-    "local": "yes"
-  }, 
-  "sw-prefetch-plugin": {
-    "sort": 20, 
-    "bat": ". /home/ubuntu/CK/local/env/da79d802e89822fa/env.sh 1\n", 
-    "ver": "0.1", 
     "name": "SW Prefetch plugin", 
     "tags": "compiler-plugin,llvm,sw-prefetch-pass", 
     "force_env_init": "yes", 
@@ -266,14 +283,15 @@
       "deps": {
         "compiler": {
           "detected_ver": "3.9.0", 
-          "sort": 10, 
           "bat": ". /home/ubuntu/CK/local/env/447c0a0b5fb205c1/env.sh\n", 
           "ver": "3.9.0", 
-          "name": "C compiler", 
-          "tags": "compiler,lang-c,llvm,v3.9.0-ck-package", 
+          "name": "C++ compiler", 
+          "tags": "compiler,lang-cpp,llvm,v3.9.0-ck-package", 
           "build_dir_name": "llvm", 
           "uoa": "447c0a0b5fb205c1", 
-          "choices": [], 
+          "choices": [
+            "447c0a0b5fb205c1"
+          ], 
           "num_entries": 1, 
           "dict": {
             "env_script": "env.sh", 
@@ -480,30 +498,71 @@
       }, 
       "soft_alias": "plugin.llvm"
     }, 
-    "cus": {
-      "env_extra": "_SW_PREFETCH_PASS", 
-      "skip_path": "yes", 
-      "version": "0.1", 
-      "add_to_path": "yes", 
-      "env_prefix": "CK_ENV_PLUGIN_LLVM", 
-      "extra_dir": "", 
-      "version_split": [
-        0, 
-        1
-      ], 
-      "install_env": {
-        "CK_PLUGIN_OUT": "SwPrefetchPass", 
-        "CK_NO_STRIDES": "0"
-      }, 
-      "full_path": "/home/ubuntu/CK-TOOLS/plugin-llvm-sw-prefetch-pass-0.1-llvm-3.9.0-linux-64/lib/SwPrefetchPass.so"
-    }, 
+    "ver": "0.1", 
     "local": "yes"
   }, 
   "compiler": {
     "sort": 10, 
     "detected_ver": "3.9.0", 
     "bat": ". /home/ubuntu/CK/local/env/447c0a0b5fb205c1/env.sh\n", 
-    "ver": "3.9.0", 
+    "cus": {
+      "can_strip_dynamic_lib": "yes", 
+      "build_dir_name": "llvm", 
+      "skip_path": "yes", 
+      "tool_prefix_configured": "yes", 
+      "tool_prefix": "", 
+      "tool_postfix_configured": "yes", 
+      "env_prefix": "CK_ENV_COMPILER_LLVM", 
+      "soft_version_cmd": {
+        "win": " --version > $#filename#$ 2>&1", 
+        "linux": "--version > $#filename#$ 2>&1"
+      }, 
+      "soft_path_example": {
+        "win": "C:\\Program Files (x86)\\llvm\\bin\\clang.exe", 
+        "linux": "/usr/bin/clang"
+      }, 
+      "languages": [
+        "C", 
+        "CPP"
+      ], 
+      "version": "3.9.0", 
+      "soft_file_from_host_os": "yes", 
+      "path_lib": "/home/ubuntu/CK-TOOLS/llvm-3.9.0-linux-64/lib", 
+      "install_env": {
+        "PACKAGE_URL": "http://llvm.org/releases", 
+        "PACKAGE_VERSION": "3.9.0", 
+        "PACKAGE_FILE": "clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz", 
+        "PACKAGE_FILE_ARM64": "clang+llvm-3.9.0-aarch64-linux-gnu.tar.xz", 
+        "PACKAGE_FILE_ARMV7A": "clang+llvm-3.9.0-armv7a-linux-gnueabihf.tar.xz"
+      }, 
+      "tool_postfix": "-3.9", 
+      "soft_file": {
+        "win": "clang.exe", 
+        "linux": "clang"
+      }, 
+      "retarget": "no", 
+      "search_numeric_ext_on_linux": "yes", 
+      "add_to_path": "yes", 
+      "add_only_with_version": "yes", 
+      "version_split": [
+        3, 
+        9, 
+        0
+      ], 
+      "limit_recursion_dir_search": {
+        "win": 4, 
+        "linux": 3
+      }, 
+      "check_that_exists": "yes", 
+      "ck_version": 10, 
+      "path_include": "/home/ubuntu/CK-TOOLS/llvm-3.9.0-linux-64/include", 
+      "only_for_target_os_tags": [
+        "android", 
+        "windows", 
+        "linux"
+      ], 
+      "full_path": "/home/ubuntu/CK-TOOLS/llvm-3.9.0-linux-64/bin/clang-3.9"
+    }, 
     "name": "C compiler", 
     "tags": "compiler,lang-c,llvm,v3.9.0-ck-package", 
     "build_dir_name": "llvm", 
@@ -665,64 +724,7 @@
       }, 
       "soft_alias": "compiler.llvm"
     }, 
-    "cus": {
-      "can_strip_dynamic_lib": "yes", 
-      "build_dir_name": "llvm", 
-      "skip_path": "yes", 
-      "tool_prefix_configured": "yes", 
-      "tool_prefix": "", 
-      "tool_postfix_configured": "yes", 
-      "env_prefix": "CK_ENV_COMPILER_LLVM", 
-      "soft_version_cmd": {
-        "win": " --version > $#filename#$ 2>&1", 
-        "linux": "--version > $#filename#$ 2>&1"
-      }, 
-      "soft_path_example": {
-        "win": "C:\\Program Files (x86)\\llvm\\bin\\clang.exe", 
-        "linux": "/usr/bin/clang"
-      }, 
-      "languages": [
-        "C", 
-        "CPP"
-      ], 
-      "version": "3.9.0", 
-      "soft_file_from_host_os": "yes", 
-      "path_lib": "/home/ubuntu/CK-TOOLS/llvm-3.9.0-linux-64/lib", 
-      "install_env": {
-        "PACKAGE_URL": "http://llvm.org/releases", 
-        "PACKAGE_VERSION": "3.9.0", 
-        "PACKAGE_FILE": "clang+llvm-3.9.0-x86_64-linux-gnu-ubuntu-16.04.tar.xz", 
-        "PACKAGE_FILE_ARM64": "clang+llvm-3.9.0-aarch64-linux-gnu.tar.xz", 
-        "PACKAGE_FILE_ARMV7A": "clang+llvm-3.9.0-armv7a-linux-gnueabihf.tar.xz"
-      }, 
-      "tool_postfix": "-3.9", 
-      "soft_file": {
-        "win": "clang.exe", 
-        "linux": "clang"
-      }, 
-      "retarget": "no", 
-      "search_numeric_ext_on_linux": "yes", 
-      "add_to_path": "yes", 
-      "add_only_with_version": "yes", 
-      "version_split": [
-        3, 
-        9, 
-        0
-      ], 
-      "limit_recursion_dir_search": {
-        "win": 4, 
-        "linux": 3
-      }, 
-      "check_that_exists": "yes", 
-      "ck_version": 10, 
-      "path_include": "/home/ubuntu/CK-TOOLS/llvm-3.9.0-linux-64/include", 
-      "only_for_target_os_tags": [
-        "android", 
-        "windows", 
-        "linux"
-      ], 
-      "full_path": "/home/ubuntu/CK-TOOLS/llvm-3.9.0-linux-64/bin/clang-3.9"
-    }, 
+    "ver": "3.9.0", 
     "local": "yes"
   }
 }
