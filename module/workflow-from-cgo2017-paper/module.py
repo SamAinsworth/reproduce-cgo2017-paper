@@ -1413,8 +1413,8 @@ def show(i):
             for ext in sorted(figures[fig][bench]):
                 ix+=1
 
-                bgraph['0'].append([ix,float(noes[fig][bench].get(cfg['pre-recorded-result-uoa'],'0'))/float(figures[fig][bench][ext].get(cfg['pre-recorded-result-uoa'],'1'))])
-                bgraph['1'].append([ix,float(noes[fig][bench].get(cfg['recorded-result-uoa'],'0'))/float(figures[fig][bench][ext].get(cfg['recorded-result-uoa'],'1'))])
+                bgraph['0'].append([ix,float(noes[fig][bench].get(cfg['pre-recorded-result-uoa'],'0'))/float(figures[fig][bench][ext].get(cfg['pre-recorded-result-uoa'],'100000000'))])
+                bgraph['1'].append([ix,float(noes[fig][bench].get(cfg['recorded-result-uoa'],'0'))/float(figures[fig][bench][ext].get(cfg['recorded-result-uoa'],'100000000'))])
 
                 legend+=str(ix)+') '+ext+'<br>'
 
