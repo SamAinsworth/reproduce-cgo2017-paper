@@ -1396,11 +1396,11 @@ def show(i):
                   if bench not in figures[fig]:
                      figures[fig][bench]={}
 
-		  if(not ext.endswith('no-prefetching')):
+                  if(not ext.endswith('no-prefetching')):
 
                      if ext not in figures[fig][bench]:
                         figures[fig][bench][ext]={}
-		  
+    
                      figures[fig][bench][ext][duid]=res.get(vx,None)
 
     # Draw figures
