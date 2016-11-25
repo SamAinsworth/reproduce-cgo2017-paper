@@ -1,4 +1,8 @@
 {
+  "tags": [
+    "cgo2017",
+    "sw-prefetch"
+  ],
   "aarch64": {
     "figure-2-nas-is-no-prefetching": {
       "stmax": "7.3600", 

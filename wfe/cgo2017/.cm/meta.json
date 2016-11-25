@@ -1,0 +1,37 @@
+{
+  "top_menu": [
+    {
+      "module_uoa": "", 
+      "module_uoas": [
+        ""
+      ], 
+      "url_extra": "action=index&module_uoa=wfe&native_action=show&native_module_uoa=46a6bedec34ef950", 
+      "native_module_uoa":"46a6bedec34ef950",
+      "native_action":"show",
+      "default":"yes",
+      "name": "Experiment dashboard"
+    }, 
+    {
+      "url_extra": "wcid=program:*&ck_top_search_tag=cgo2017,sw-prefetch", 
+      "module_uoa": "program", 
+      "module_uoas": [
+        "program"
+      ], 
+      "name": "Browse benchmarks"
+    }, 
+    {
+      "url_extra": "wcid=package:*&ck_top_search_tag=compiler-plugin,llvm", 
+      "module_uoa": "package", 
+      "module_uoas": [
+        "package"
+      ], 
+      "name": "Browse LLVM plugins"
+    }, 
+    {
+      "name": "Get workflow from GitHub", 
+      "url": "https://github.com/SamAinsworth/reproduce-cgo2017-paper",
+      "new_window":"yes"
+    }
+  ],
+  "extra_html_after_menu":""
+}
