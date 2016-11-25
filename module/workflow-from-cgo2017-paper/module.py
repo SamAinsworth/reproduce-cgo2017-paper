@@ -18,6 +18,11 @@ flog='ck-log-reproduce-results-from-cgo2017-paper.txt'
 fflog=''
 log_init=False
 
+form_name='wa_web_form'
+onchange='document.'+form_name+'.submit();'
+
+benchmarks=['nas-cg','nas-is','graph500-s16','graph500-s21','hashjoin-ph-2','hashjoin-ph-8','randacc']
+
 ##############################################################################
 # Initialize module
 
@@ -208,6 +213,7 @@ def experiment(i):
        x=results.get(key,{}).get('stmean','')
        if x!='': estmean=' (from paper: '+x+')'
 
+       # Check pre-record results or write to temporal evaluator entry
        if rec=='yes':
           if key not in results:
              results[key]={}
@@ -215,14 +221,47 @@ def experiment(i):
           results[key]['stmax']=stmax
           results[key]['stmean']=stmean
 
+          dd['tags']=["cgo2017","sw-prefetch"]
+
           # Update result entry
           r=ck.access({'action':'update',
                        'module_uoa':cfg['module_deps']['result'],
                        'repo_uoa':rruoa,
                        'data_uoa':rduoa,
                        'substitute':'yes',
+                       'sort_keys':'yes',
                        'ignore_update':'yes',
                        'dict':dd})
+          if r['return']>0: return r
+
+       else:
+          # Load local result if exists
+          dlocal={}
+          r=ck.access({'action':'load',
+                       'module_uoa':cfg['module_deps']['result'],
+                       'data_uoa':cfg['recorded-result-uoa']})
+          if r['return']==0: 
+             dlocal=r['dict']
+
+          if os_abi not in dlocal:
+             dlocal[os_abi]={}
+
+          if key not in dlocal[os_abi]:
+             dlocal[os_abi][key]={}
+
+          dlocal[os_abi][key]['stmin']=stmin
+          dlocal[os_abi][key]['stmax']=stmax
+          dlocal[os_abi][key]['stmean']=stmean
+
+          dlocal['tags']=["cgo2017","sw-prefetch"]
+
+          r=ck.access({'action':'update',
+                       'module_uoa':cfg['module_deps']['result'],
+                       'data_uoa':cfg['recorded-result-uoa'],
+                       'substitute':'yes',
+                       'sort_keys':'yes',
+                       'ignore_update':'yes',
+                       'dict':dlocal})
           if r['return']>0: return r
 
     # Print
@@ -1130,3 +1169,270 @@ def run(i):
                 log({'string':'Experiment failed ('+r['error']+')'})
 
     return {'return':0}
+
+##############################################################################
+# open PLUTON dashboard
+
+def dashboard(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    i['action']='browser'
+    i['cid']=''
+    i['module_uoa']=''
+    i['template']='cgo2017'
+
+    return ck.access(i)
+
+##############################################################################
+# show experiment dashboard
+
+def show(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    import os
+    import copy
+
+    st=''
+    ckey=''
+
+    h='<center>\n'
+    h+='\n\n<script language="JavaScript">function copyToClipboard (text) {window.prompt ("Copy to clipboard: Ctrl+C, Enter", text);}</script>\n\n' 
+
+    # Check host URL prefix and default module/action
+    rx=ck.access({'action':'form_url_prefix',
+                  'module_uoa':cfg['module_deps']['wfe'],
+                  'host':i.get('host',''), 
+                  'port':i.get('port',''), 
+                  'template':i.get('template','')})
+    if rx['return']>0: return rx
+    url0=rx['url']
+    template=rx['template']
+
+    url=url0
+    action=i.get('action','')
+    muoa=i.get('module_uoa','')
+
+    st=''
+
+    url+='action=index&module_uoa=wfe&native_action='+action+'&'+'native_module_uoa='+muoa
+    url1=url
+
+    # List entries
+    ii={'action':'search',
+        'module_uoa':cfg['module_deps']['result'],
+        'add_meta':'yes',
+        'tags':'cgo2017,sw-prefetch'}
+    r=ck.access(ii)
+    if r['return']>0: return r
+
+    lst=r['lst']
+
+    # Check unique entries
+    wchoices=[]
+
+    for q in lst:
+        d=q['meta']
+        for k in d:
+            if k!='tags' and len(d[k])>0:
+               wchoices.append({'name':k, 'value':k})
+
+    # Prepare query div ***************************************************************
+    # Start form + URL (even when viewing entry)
+    r=ck.access({'action':'start_form',
+                 'module_uoa':cfg['module_deps']['wfe'],
+                 'url':url1,
+                 'name':form_name})
+    if r['return']>0: return r
+    h+=r['html']
+
+    cpu_abi='cpu_abi'
+    v=''
+    if i.get(cpu_abi,'')!='':
+        v=i[cpu_abi]
+
+    # If ABI is not selected, try to detect the one of current machine 
+    # if user runs experiments on the same one
+    if v=='':
+       ii={'action':'detect',
+           'module_uoa':cfg['module_deps']['platform'],
+           'exchange':'no'}
+       r=ck.access(ii)
+       if r['return']>0: return r
+
+       pft=r['features']
+
+       v=pft.get('os',{}).get('abi','').lower()
+
+    if v=='' and len(wchoices)>0:
+       v=wchoices[0]['value']
+
+    # Show hardware
+    ii={'action':'create_selector',
+        'module_uoa':cfg['module_deps']['wfe'],
+        'data':wchoices,
+        'name':cpu_abi,
+        'onchange':onchange, 
+        'skip_sort':'no',
+        'selected_value':v}
+    r=ck.access(ii)
+    if r['return']>0: return r
+
+    h+='<b>Select CPU ABI:</b> '+r['html'].strip()+'\n'
+
+    # Check min or mean
+    var=''
+    vx=''
+    if i.get(var,'')!='':
+        vx=i[var]
+
+    # Show min or mean selector
+    ii={'action':'create_selector',
+        'module_uoa':cfg['module_deps']['wfe'],
+        'data':[{'name':'minimal execution time', 'value':'stmin'},{'name':'mean execution time', 'value':'stmean'}],
+        'name':var,
+        'onchange':onchange, 
+        'skip_sort':'no',
+        'selected_value':vx}
+    r=ck.access(ii)
+    if r['return']>0: return r
+
+    h+='<b>which value:</b> '+r['html'].strip()+'\n'
+
+
+    h+='<br><br>'
+
+    # Check if found
+    llst=len(lst)
+    if llst==0:
+        h+='<b>No results found!</b>'
+        return {'return':0, 'html':h, 'style':st}
+
+    # Preparing figures
+    figures={}
+
+    h+=str(len(lst))
+
+    for q in lst:
+        duid=q['data_uid'] # Uid of the entry
+        meta=q['meta']
+        results=meta.get(v,{})
+        for k in sorted(results):
+            res=results[k]
+            # Get figure from key "figure-2-nas-is-offset-2048"
+            if k.startswith('figure-'):
+               j=k.find('-',7)
+               if j>0:
+                  fig=k[7:j]
+                  ext=k[j+1:].strip()
+
+                  # Check which benchmark
+                  bench=''
+                  for b in benchmarks:
+                      if ext.startswith(b):
+                         bench=b
+                         break
+
+                  if fig not in figures:
+                     figures[fig]={}
+
+                  if bench not in figures[fig]:
+                     figures[fig][bench]={}
+
+                  if ext not in figures[fig][bench]:
+                     figures[fig][bench][ext]={}
+
+                  figures[fig][bench][ext][duid]=res.get('stmin',None)
+
+    # Draw figures
+    h+='<i>Please, check the tendency, not exact match!</i><br><br>'
+    h+='<span style="color:#1f77b4">Blue color bars - results pre-recorded by the authors</span><br>'
+    h+='<span style="color:#ff7f0e">Orange color bars - results by artifact evaluators</span><br>'
+
+    for fig in sorted(figures):
+        h+='<hr>'
+
+        for bench in sorted(figures[fig]):
+
+            h+='<br><b>Figure '+fig+' ('+bench+')</b><br><br>'
+
+            ix=0
+            bgraph={'0':[], '1':[]}
+            legend=''
+
+            for ext in sorted(figures[fig][bench]):
+                ix+=1
+
+                bgraph['0'].append([ix,figures[fig][bench][ext].get(cfg['pre-recorded-result-uoa'],None)])
+                bgraph['1'].append([ix,figures[fig][bench][ext].get(cfg['recorded-result-uoa'],None)])
+
+                legend+=str(ix)+') '+ext+'<br>'
+
+            ii={'action':'plot',
+                'module_uoa':cfg['module_deps']['graph'],
+
+                "table":bgraph,
+
+                "ymin":0,
+
+                "ignore_point_if_none":"yes",
+
+                "plot_type":"d3_2d_bars",
+
+                "display_y_error_bar":"no",
+
+                "title":"Powered by Collective Knowledge",
+
+                "axis_x_desc":"Experiment",
+                "axis_y_desc":"Benchmark mean execution time (s)",
+
+                "plot_grid":"yes",
+
+                "d3_div":"ck_interactive_"+fig+'_'+bench,
+
+                "image_width":"900",
+                "image_height":"400",
+
+                "wfe_url":url0}
+
+            r=ck.access(ii)
+            if r['return']==0:
+               x=r.get('html','')
+               if x!='':
+                  st+=r.get('style','')
+
+                  h+='<br>\n'
+                  h+='<center>\n'
+                  h+='<div id="ck_box_with_shadow" style="width:920px;">\n'
+                  h+=' <div id="ck_interactive_'+fig+'_'+bench+'" style="text-align:center">\n'
+                  h+=x+'\n'
+
+                  h+=legend+'<br>'
+                  h+=' </div>\n'
+                  h+='</div>\n'
+                  h+='</center>\n'
+
+    h+='</center>\n'
+
+    h+='</form>\n'
+
+    return {'return':0, 'html':h, 'style':st}
