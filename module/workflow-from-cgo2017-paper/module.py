@@ -1300,15 +1300,15 @@ def show(i):
     h+='<b>Select CPU ABI:</b> '+r['html'].strip()+'\n'
 
     # Check min or mean
-    var=''
-    vx=''
+    var='st'
+    vx='stmean'
     if i.get(var,'')!='':
         vx=i[var]
 
     # Show min or mean selector
     ii={'action':'create_selector',
         'module_uoa':cfg['module_deps']['wfe'],
-        'data':[{'name':'minimal execution time', 'value':'stmin'},{'name':'mean execution time', 'value':'stmean'}],
+        'data':[{'name':'minimal execution time', 'value':'stmin'},{'name':'max execution time', 'value':'stmax'},{'name':'mean execution time', 'value':'stmean'}],
         'name':var,
         'onchange':onchange, 
         'skip_sort':'no',
@@ -1329,13 +1329,41 @@ def show(i):
 
     # Preparing figures
     figures={}
+    noes = {}
 
-    h+=str(len(lst))
+    #h+=str(len(lst))
 
     for q in lst:
         duid=q['data_uid'] # Uid of the entry
         meta=q['meta']
         results=meta.get(v,{})
+        
+        for k in sorted(results):
+            res=results[k]
+            # Get figure from key "figure-2-nas-is-offset-2048"
+            if k.startswith('figure-'):
+               j=k.find('-',7)
+               if j>0:
+                  fig=k[7:j]
+                  ext=k[j+1:].strip()
+
+                  # Check which benchmark
+                  bench=''
+                  for b in benchmarks:
+                      if ext.startswith(b):
+                         bench=b
+                         break
+
+                  if fig not in noes:
+                     noes[fig]={}
+                     
+                  if bench not in noes[fig]:
+                     noes[fig][bench]={}
+
+                  if(ext.endswith('no-prefetching')):
+                     noes[fig][bench][duid]=res.get('stmean',None)
+
+        
         for k in sorted(results):
             res=results[k]
             # Get figure from key "figure-2-nas-is-offset-2048"
@@ -1358,13 +1386,16 @@ def show(i):
                   if bench not in figures[fig]:
                      figures[fig][bench]={}
 
-                  if ext not in figures[fig][bench]:
-                     figures[fig][bench][ext]={}
+		  if(not ext.endswith('no-prefetching')):
 
-                  figures[fig][bench][ext][duid]=res.get('stmin',None)
+                     if ext not in figures[fig][bench]:
+                        figures[fig][bench][ext]={}
+		  
+                     figures[fig][bench][ext][duid]=res.get(vx,None)
 
     # Draw figures
-    h+='<i>Please, check the tendency, not exact match!</i><br><br>'
+    h+='<i>Please, check the tendency, not exact match!</i><br>'
+    h+='<i> Prerecorded aarch64 results are for A57, not A53: In order architectures will perform similar to as shown in the paper.</i><br><br>'
     h+='<span style="color:#1f77b4">Blue color bars - results pre-recorded by the authors</span><br>'
     h+='<span style="color:#ff7f0e">Orange color bars - results by artifact evaluators</span><br>'
 
@@ -1382,8 +1413,8 @@ def show(i):
             for ext in sorted(figures[fig][bench]):
                 ix+=1
 
-                bgraph['0'].append([ix,figures[fig][bench][ext].get(cfg['pre-recorded-result-uoa'],None)])
-                bgraph['1'].append([ix,figures[fig][bench][ext].get(cfg['recorded-result-uoa'],None)])
+                bgraph['0'].append([ix,float(noes[fig][bench].get(cfg['pre-recorded-result-uoa'],'0'))/float(figures[fig][bench][ext].get(cfg['pre-recorded-result-uoa'],'1'))])
+                bgraph['1'].append([ix,float(noes[fig][bench].get(cfg['recorded-result-uoa'],'0'))/float(figures[fig][bench][ext].get(cfg['recorded-result-uoa'],'1'))])
 
                 legend+=str(ix)+') '+ext+'<br>'
 
@@ -1403,7 +1434,7 @@ def show(i):
                 "title":"Powered by Collective Knowledge",
 
                 "axis_x_desc":"Experiment",
-                "axis_y_desc":"Benchmark mean execution time (s)",
+                "axis_y_desc":"Speedup",
 
                 "plot_grid":"yes",
 

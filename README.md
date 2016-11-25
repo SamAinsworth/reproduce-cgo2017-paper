@@ -78,7 +78,15 @@ If any unexpected behaviour is observed, please report it to the authors.
 Validation of results
 ====================================================
 
-Results will be output to ck-log-reproduce-results-from-cgo2017-paper.txt, in the directory in which you run the workflow.
+To generate bar graphs of the data, run 
+
+```
+ck dashboard workflow-from-cgo2017-paper
+```
+
+This will output speedups for the data you have generated, and also graphs for prerecorded data for x86 (Haswell) and aarch64 (A57), but not aarch64 (A53).
+
+Results will also be output to ck-log-reproduce-results-from-cgo2017-paper.txt, in the directory in which you run the workflow.
 
 This file will include the results observed on your machine, and those observed on either Haswell or A57 for reference, depending on your target ISA.
 
