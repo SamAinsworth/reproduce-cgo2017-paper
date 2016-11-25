@@ -23,6 +23,16 @@ onchange='document.'+form_name+'.submit();'
 
 benchmarks=['nas-cg','nas-is','graph500-s16','graph500-s21','hashjoin-ph-2','hashjoin-ph-8','randacc']
 
+
+##############################################################################
+# Sorting
+
+import re
+def get_trailing_number(s):
+    m = re.search(r'\d+$', s)
+    return float(m.group()) if m else 0
+
+
 ##############################################################################
 # Initialize module
 
@@ -1410,7 +1420,7 @@ def show(i):
             bgraph={'0':[], '1':[]}
             legend=''
 
-            for ext in sorted(figures[fig][bench]):
+            for ext in sorted(figures[fig][bench], key = get_trailing_number) if fig!=6 else sorted(figures[fig][bench], key = get_trailing_number) :
                 ix+=1
 
                 bgraph['0'].append([ix,float(noes[fig][bench].get(cfg['pre-recorded-result-uoa'],'0'))/float(figures[fig][bench][ext].get(cfg['pre-recorded-result-uoa'],'100000000'))])
