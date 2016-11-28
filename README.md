@@ -200,21 +200,20 @@ $ ck install package:lib-ncurses-6.0-root
 
  undefined symbol:  _ZNK4llvm12FunctionPass17createPrinterPassERNS_11raw_ostreamERKSs when compiling using Clang:
  
- This occurs on some machines depending on other libraries installed. To fix this, change the flag
- 
- ```
- -D_GLIBCXX_USE_CXX11_ABI=1
- ```
- in 
- 
- ```
-  $(ck find repo:reproduce-cgo2017-paper)/package/plugin-llvm-sw-pass/Makefile
- ```
-  to either equal 0 or 1, depending on the value previously.
-
-Then reinstall by running
+ This occurs on some machines depending on other libraries installed. To fix this, run 
 
 ```
-ck install package:plugin-llvm-sw-prefetch-pass
-ck install package:plugin-llvm-sw-prefetch-no-strides-pass
+$ ck install package:plugin-llvm-sw-prefetch-pass -DCK_FORCE_USE_ABI=0
+$ ck install package:plugin-llvm-sw-prefetch-no-strides-pass -DCK_FORCE_USE_ABI=0
 ```
+
+or
+
+```
+$ ck install package:plugin-llvm-sw-prefetch-no-strides-pass -DCK_FORCE_USE_ABI=1
+$ ck install package:plugin-llvm-sw-prefetch-pass -DCK_FORCE_USE_ABI=1
+```
+
+and retry compilation.
+
+If this var is not specified, CK build script will try to detect host machine and will set it to 1 on aarch64 and to 0 on anything else: if this fails, try the opposite.
