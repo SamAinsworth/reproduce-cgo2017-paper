@@ -15,7 +15,7 @@ CXXFLAGS += ${EXTRA_FLAGS}
 CXXFLAGS += -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -Wno-long-long
 CXXFLAGS += -fPIC -fvisibility-inlines-hidden
 CXXFLAGS += -fno-exceptions -fno-rtti -std=c++11
-CXXFLAGS += -Wall
+CXXFLAGS += -Wall -D_GLIBCXX_USE_CXX11_ABI=0
 
 # Linker flags.
 LDFLAGS = -shared -Wl,-undefined,dynamic_lookup
