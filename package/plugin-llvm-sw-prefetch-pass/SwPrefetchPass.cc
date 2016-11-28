@@ -28,7 +28,7 @@
 
 #ifdef NO_STRIDES
 #define C_CONSTANT (32)
-#else
+#else 
 #define C_CONSTANT (64)
 #endif
 
