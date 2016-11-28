@@ -9,6 +9,15 @@
 
 cd $INSTALL_DIR
 
+if [ "$CK_FORCE_USE_ABI" == "" ] ; then
+ MACHINE=$(uname -m)
+ if [ "${MACHINE}" == "aarch64" ]; then
+  CK_FORCE_USE_ABI=0
+ else
+  CK_FORCE_USE_ABI=1
+ fi
+fi
+
 mkdir lib
 rm -f lib/SwPrefetchPass.so
 
@@ -31,7 +40,8 @@ make CXX=$CK_CXX \
      CLANG_DIR=${CK_ENV_COMPILER_LLVM} \
      CLANG=${CK_ENV_COMPILER_LLVM_BIN}/$CK_CC \
      EXTRA_FLAGS=${CK_EXTRA_FLAGS} \
-     PLUGIN_OUT=${CK_PLUGIN_OUT}
+     PLUGIN_OUT=${CK_PLUGIN_OUT} \
+     FORCE_USE_ABI=${CK_FORCE_USE_ABI}
 if [ "${?}" != "0" ] ; then
  echo "Error: Compilation failed in $PWD!" 
  exit 1

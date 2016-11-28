@@ -7,6 +7,7 @@ LLVM_DIR = /local/scratch/sa614/clang
 LLVM_BUILD_DIR = $(LLVM_DIR)/build
 CLANG_DIR = $(LLVM_DIR)/tools/clang
 CLANG = $(LLVM_BUILD_DIR)/bin/clang
+FORCE_USE_ABI=0
 
 # Compiler flags.
 CXXFLAGS  = -I$(LLVM_DIR)/include -I$(CLANG_DIR)/include -I$(LLVM_DIR)/llvm/include 
@@ -15,7 +16,7 @@ CXXFLAGS += ${EXTRA_FLAGS}
 CXXFLAGS += -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -Wno-long-long
 CXXFLAGS += -fPIC -fvisibility-inlines-hidden
 CXXFLAGS += -fno-exceptions -fno-rtti -std=c++11
-CXXFLAGS += -Wall -D_GLIBCXX_USE_CXX11_ABI=0
+CXXFLAGS += -Wall -D_GLIBCXX_USE_CXX11_ABI=${FORCE_USE_ABI}
 
 # Linker flags.
 LDFLAGS = -shared -Wl,-undefined,dynamic_lookup
