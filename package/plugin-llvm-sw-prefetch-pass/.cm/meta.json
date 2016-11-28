@@ -1,33 +1,34 @@
 {
   "customize": {
-    "extra_dir": "",
-    "env_extra": "_SW_PREFETCH_PASS",
-    "version": "0.1",
+    "env_extra": "_SW_PREFETCH_PASS", 
+    "extra_dir": "", 
     "install_env": {
-      "CK_PLUGIN_OUT": "SwPrefetchPass",
-      "CK_NO_STRIDES": "0"
-    }
-  },
+      "CK_NO_STRIDES": "0", 
+      "CK_PLUGIN_OUT": "SwPrefetchPass"
+    }, 
+    "version": "0.1"
+  }, 
   "deps": {
     "compiler": {
-      "local": "yes",
-      "name": "C++ compiler",
+      "local": "yes", 
+      "name": "C++ compiler", 
       "tags": "compiler,lang-cpp,llvm,v3.9.0-ck-package"
     }
-  },
+  }, 
   "end_full_path": {
-    "android": "lib$#sep#$SwPrefetchPass.so",
-    "linux": "lib/SwPrefetchPass.so",
-    "mingw": "lib\\SwPrefetchPass.so",
+    "android": "lib$#sep#$SwPrefetchPass.so", 
+    "linux": "lib/SwPrefetchPass.so", 
+    "mingw": "lib\\SwPrefetchPass.so", 
     "win": "lib\\SwPrefetchPass.so"
-  },
-  "process_script": "compile",
-  "soft_uoa": "cb5940a8eba4fe8b",
-  "suggested_path": "plugin-llvm-sw-prefetch-pass",
+  }, 
+  "need_cpu_info": "yes", 
+  "process_script": "compile", 
+  "soft_uoa": "cb5940a8eba4fe8b", 
+  "suggested_path": "plugin-llvm-sw-prefetch-pass", 
   "tags": [
-    "plugin",
-    "compiler-plugin",
-    "llvm",
+    "plugin", 
+    "compiler-plugin", 
+    "llvm", 
     "sw-prefetch-pass"
   ]
 }
