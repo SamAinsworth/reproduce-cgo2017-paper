@@ -198,3 +198,23 @@ Issues with libncursesw.so.6 (not found) on some older machines: It can be fixed
 $ ck install package:lib-ncurses-6.0-root
 ```
 
+ undefined symbol:  _ZNK4llvm12FunctionPass17createPrinterPassERNS_11raw_ostreamERKSs when compiling using Clang:
+ 
+ This occurs on some machines depending on other libraries installed. To fix this, change the flag
+ 
+ ```
+ -D_GLIBCXX_USE_CXX11_ABI=1
+ ```
+ in 
+ 
+ ```
+  $(ck find repo:reproduce-cgo2017-paper)/package/plugin-llvm-sw-pass/Makefile
+ ```
+  to either equal 0 or 1, depending on the value previously.
+
+Then reinstall by running
+
+```
+ck install package:plugin-llvm-sw-prefetch-pass
+ck install package:plugin-llvm-sw-prefetch-no-strides-pass
+```
