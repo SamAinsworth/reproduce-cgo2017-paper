@@ -216,4 +216,4 @@ $ ck install package:plugin-llvm-sw-prefetch-pass -DCK_FORCE_USE_ABI=1
 
 and retry compilation.
 
-If this var is not specified, CK build script will try to detect host machine and will set it to 1 on aarch64 and to 0 on anything else: if this fails, try the opposite.
+If this var is not specified, CK build script will try to detect host machine and will set it to 0 on aarch64 and to 1 on anything else: if this fails, try the opposite.
