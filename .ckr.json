@@ -6,6 +6,9 @@
      "shared": "git",
      "repo_deps": [
        {
+         "repo_uoa": "ck-docker"
+       },
+       {
          "repo_uoa": "ck-autotuning"
        }
      ]

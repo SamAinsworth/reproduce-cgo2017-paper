@@ -1,0 +1,21 @@
+{
+  "backup_data_uid": "4aa43979981de11e", 
+  "backup_module_uid": "88eef0cd8c43b68a", 
+  "backup_module_uoa": "docker", 
+  "control": {
+    "author": "", 
+    "author_email": "", 
+    "author_webpage": "", 
+    "copyright": "", 
+    "engine": "CK", 
+    "iso_datetime": "2016-11-29T09:49:25.878316", 
+    "license": "", 
+    "version": [
+      "1", 
+      "8", 
+      "4", 
+      "2"
+    ]
+  }, 
+  "data_name": "reproduce-cgo2017-paper-x86-64"
+}
