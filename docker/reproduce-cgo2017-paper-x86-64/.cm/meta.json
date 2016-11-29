@@ -1,0 +1,36 @@
+{
+  "browser": {
+    "url": "http://$#WFE_HOST#$:$#WFE_PORT#$/web?template=cgo2017"
+  }, 
+  "cmd": {
+    "default": {
+      "build": "-t $#CK_DOCKER_ORGANIZATION#$/$#CK_DOCKER_NAME#$ $#CK_PATH#$", 
+      "push": "$#CK_DOCKER_ORGANIZATION#$/$#CK_DOCKER_NAME#$", 
+      "run": "--rm -it $#CK_DOCKER_ORGANIZATION#$/$#CK_DOCKER_NAME#$", 
+      "run_extra_cmd": "--env CK_HOST=$#CK_HOST#$ --env WFE_HOST=$#WFE_HOST#$ --env CK_PORT=$#CK_PORT#$ --env WFE_PORT=$#WFE_PORT#$ -p $#CK_PORT#$:$#CK_PORT#$"
+    }
+  }, 
+  "convert_input_to_vars": {
+    "CK_HOST": {
+      "default": "0.0.0.0", 
+      "key": "CK_HOST"
+    }, 
+    "CK_PORT": {
+      "default": "3344", 
+      "key": "CK_PORT"
+    }, 
+    "WFE_HOST": {
+      "default": "localhost", 
+      "key": "WFE_HOST"
+    }, 
+    "WFE_PORT": {
+      "default": "3344", 
+      "key": "WFE_PORT"
+    }
+  }, 
+  "platform_specific": {
+    "windows": {
+      "WFE_HOST": "$(docker-machine ip)"
+    }
+  }
+}
