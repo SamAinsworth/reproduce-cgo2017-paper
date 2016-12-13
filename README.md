@@ -1,4 +1,4 @@
-Artifact Evaluation Reproduction for "Software Prefetching for Indirect Memory Accesses", CGO 2017, using CK. 
+Artefact Evaluation Reproduction for "Software Prefetching for Indirect Memory Accesses", CGO 2017, using CK. 
 ==================================================
 
 This repository contains artifacts and workflows
@@ -81,7 +81,7 @@ Validation of results
 To generate bar graphs of the data, run 
 
 ```
-ck dashboard workflow-from-cgo2017-paper
+$ ck dashboard workflow-from-cgo2017-paper
 ```
 
 This will output speedups for the data you have generated, and also graphs for prerecorded data for x86 (Haswell) and aarch64 (A57), but not aarch64 (A53).
@@ -102,19 +102,19 @@ Manual validation (if problems with CK)
 for x86-64:
 
 ```
-$cd script/reproduce-cgo2017-paper
+$ cd script/reproduce-cgo2017-paper
 ```
 
 To compile:
 
 ```
-$./compile_x86.sh
+$ ./compile_x86.sh
 ```
 
 To run:
 
 ```
-$./run_x86.sh
+$ ./run_x86.sh
 ```
 
 for ARM64:
@@ -122,15 +122,15 @@ for ARM64:
 cross compilation for ARM64 on an x86-64 machine:
 
 ```
-$cd script/reproduce-cgo2017-paper
-$./compile_aarch64.sh
+$ cd script/reproduce-cgo2017-paper
+$ ./compile_aarch64.sh
 ```
 
 running on an ARM64 machine:
 
 ```
-$cd script/reproduce-cgo2017-paper
-$./run_arm.sh
+$ cd script/reproduce-cgo2017-paper
+$ ./run_arm.sh
 ```
 
 Recompilation should not be necessary, as all binaries are included, but is provided as an option.
@@ -185,10 +185,10 @@ Troubleshooting
 Issues with GLIBCXX_3.4.20/3.4.21 when using LLVM installed via CK: These sometimes occur on earlier Ubuntu versions (14.04) on ARM/x86. This can be fixed by upgrading to later versions of Ubuntu, or can sometimes be fixed by:
 
 ```
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get dist-upgrade
+$ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo apt-get dist-upgrade
 ```
 
 Issues with libncursesw.so.6 (not found) on some older machines: It can be fixed by compiling and installing lib-ncurses with the support for wide characters. This can be done automatically via CK:
