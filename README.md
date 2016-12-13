@@ -3,7 +3,7 @@ Artefact Evaluation Reproduction for "Software Prefetching for Indirect Memory A
 
 This repository contains artifacts and workflows
 to reproduce experiments from the CGO 2017 paper 
-by S.Ainsworth and T.M.Jones
+by S. Ainsworth and T. M. Jones
 
 "Software Prefetching for Indirect Memory Accesses"
 
@@ -137,7 +137,7 @@ Recompilation should not be necessary, as all binaries are included, but is prov
 
 Authors
 =======
-S.Ainsworth and T.M.Jones
+S. Ainsworth and T. M. Jones
 
 Acknowledgments
 ===============
