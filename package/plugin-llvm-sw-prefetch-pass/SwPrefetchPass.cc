@@ -655,7 +655,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
 
                     }
                     else if(size->getType() != n->getType()) {
-                        Instruction* cast = CastInst::CreateIntegerCast(size,Type::getInt64Ty(M->getContext()),true);
+                        Instruction* cast = CastInst::CreateIntegerCast(size,n->getType(),true);
                         assert(cast);
                         Builder.Insert(cast);
                         Value* sub = Builder.CreateSub(cast,ConstantInt::get(Type::getInt64Ty(M->getContext()),1));
@@ -664,7 +664,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
 
                     } else {
 
-                        Value* sub = Builder.CreateSub(size,ConstantInt::get(Type::getInt64Ty(M->getContext()),1));
+                        Value* sub = Builder.CreateSub(size,ConstantInt::get(n->getType(),1));
                         Value* cmp = Builder.CreateICmp(CmpInst::ICMP_SLT,sub,n);
                         mod = dyn_cast<Instruction>(Builder.CreateSelect(cmp,sub,n));
                     }
