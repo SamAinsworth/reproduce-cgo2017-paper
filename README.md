@@ -174,7 +174,8 @@ The software prefetching shared object pass can also be compiled and installed u
 
 ```
 	$ ck install package:plugin-llvm-sw-prefetch-pass
-	$ clang -Xclang -load -Xclang $($(ck find $(ck search env --tags=sw-prefetch-pass))/env.sh; which $CK_ENV_PLUGIN_LLVM_SW_PREFETCH_PASS_FILE) -O3 ...
+	$ . $(ck find $(ck search env --tags=sw-prefetch-pass))/env.sw
+	$ clang -Xclang -load -Xclang $CK_ENV_PLUGIN_LLVM_SW_PREFETCH_PASS_FILE -O3 ...
 ```
 
 
