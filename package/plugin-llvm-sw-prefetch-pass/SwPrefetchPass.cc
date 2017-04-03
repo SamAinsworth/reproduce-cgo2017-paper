@@ -349,6 +349,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                 if(Phi) {
                     if(Phi == p) {
                         //add this
+                        roundInsts.remove(p);
                         roundInsts.insert (p);
                         found = true; //should have been before anyway
                     } else {
@@ -369,6 +370,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                 } else {
 
                     Phi = p;
+                    roundInsts.remove(p);
                     roundInsts.insert (p);
                     found = true;
                 }
@@ -395,7 +397,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
 				if(Phi) {
                     if(Phi == phi) {
                                 //add this
-                                for(auto q : Insts[lindex]) roundInsts.insert (q);
+                                for(auto q : Insts[lindex]) {roundInsts.remove(q); roundInsts.insert (q);} 
                                 found = true; //should have been before anyway
                     } else {
                                 //check which is older.
@@ -405,7 +407,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                                 } else if (LI.getLoopFor(phi->getParent())->isLoopInvariant(Phi)) {
                                     dbgs() << "switching phis\n";
                                     roundInsts.clear();
-                                    for(auto q : Insts[lindex]) roundInsts.insert (q);
+                                    for(auto q : Insts[lindex]) {roundInsts.remove(q); roundInsts.insert (q);} 
                                     Phi = phi;
                                     found = true;
                                 } else {
@@ -413,7 +415,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                                 }
                             }
                         } else {
-                            for(auto q : Insts[lindex]) roundInsts.insert (q);
+                            for(auto q : Insts[lindex]) {roundInsts.remove(q); roundInsts.insert (q);} 
                             Phi = phi;
                             found = true;
                         }
@@ -460,7 +462,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                         if(Phi) {
                             if(Phi == phi) {
                                 //add this
-                                for(auto q : Instrz) roundInsts.insert (q);
+                                for(auto q : Instrz) {roundInsts.remove(q); roundInsts.insert (q);} 
                                 found = true; //should have been before anyway
                             } else {
                                 //check which is older.
@@ -470,7 +472,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                                 } else if (LI.getLoopFor(phi->getParent())->isLoopInvariant(Phi)) {
                                     dbgs() << "switching phis\n";
                                     roundInsts.clear();
-                                    for(auto q : Instrz) roundInsts.insert (q);
+                                    for(auto q : Instrz) {roundInsts.remove(q); roundInsts.insert (q);} 
                                     Phi = phi;
                                     found = true;
                                 } else {
@@ -478,7 +480,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                                 }
                             }
                         } else {
-                            for(auto q : Instrz) roundInsts.insert (q);
+                            for(auto q : Instrz) {roundInsts.remove(q); roundInsts.insert (q);} 
                             Phi = phi;
                             found = true;
                         }
