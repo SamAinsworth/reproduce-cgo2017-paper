@@ -326,12 +326,11 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
 
 
 
-    bool depthFirstSearch (Instruction* I, LoopInfo &LI, Instruction* &Phi, SmallVector<Instruction*,8> &Instrs) {
+    bool depthFirstSearch (Instruction* I, LoopInfo &LI, Instruction* &Phi, SmallVector<Instruction*,8> &Instrs, SmallVector<Instruction*,4> &Loads, SmallVector<Instruction*,4> &Phis, std::vector<SmallVector<Instruction*,8>>& Insts) {
         Use* u = I->getOperandList();
         Use* end = u + I->getNumOperands();
 
-        SmallVector<Instruction*,8> roundInsts;
-        SmallSet<Instruction*,8> gotPhi;
+        SetVector<Instruction*> roundInsts;
 
         bool found = false;
 
@@ -350,8 +349,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                 if(Phi) {
                     if(Phi == p) {
                         //add this
-                        roundInsts.push_back(p);
-                        gotPhi.insert(p);
+                        roundInsts.insert (p);
                         found = true; //should have been before anyway
                     } else {
                         //check which is older.
@@ -361,10 +359,8 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                         } else if (LI.getLoopFor(p->getParent())->isLoopInvariant(Phi)) {
                             dbgs() << "switching phis\n";
                             roundInsts.clear();
-                            roundInsts.push_back(p);
+                            roundInsts.insert (p);
                             Phi = p;
-                            gotPhi.clear();
-                            gotPhi.insert(p);
                             found = true;
                         } else {
                             assert(0);
@@ -373,8 +369,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                 } else {
 
                     Phi = p;
-                    roundInsts.push_back(p);
-                    gotPhi.insert(p);
+                    roundInsts.insert (p);
                     found = true;
                 }
 
@@ -384,6 +379,50 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
             else if(dyn_cast<StoreInst>(v->get())) {}
             else if(dyn_cast<CallInst>(v->get())) {}
             else if(dyn_cast<TerminatorInst>(v->get())) {}
+            else if(LoadInst * linst = dyn_cast<LoadInst>(v->get())) {
+				//Cache results
+        
+        int lindex=-1;
+        int index=0;
+			for( auto l: Loads) {
+				if (l == linst) {lindex=index; break;}
+				index++;
+			} 
+			
+			if(lindex!=-1) {
+				Instruction* phi = Phis[lindex];
+				
+				if(Phi) {
+                    if(Phi == phi) {
+                                //add this
+                                for(auto q : Insts[lindex]) roundInsts.insert (q);
+                                found = true; //should have been before anyway
+                    } else {
+                                //check which is older.
+                                if(LI.getLoopFor(Phi->getParent())->isLoopInvariant(phi)) {
+                                    //do nothing
+                                    dbgs() << "not switching phis\n";
+                                } else if (LI.getLoopFor(phi->getParent())->isLoopInvariant(Phi)) {
+                                    dbgs() << "switching phis\n";
+                                    roundInsts.clear();
+                                    for(auto q : Insts[lindex]) roundInsts.insert (q);
+                                    Phi = phi;
+                                    found = true;
+                                } else {
+                                    assert(0);
+                                }
+                            }
+                        } else {
+                            for(auto q : Insts[lindex]) roundInsts.insert (q);
+                            Phi = phi;
+                            found = true;
+                        }
+				
+			}
+        
+				
+        
+			}
             else if(Instruction* k = dyn_cast<Instruction>(v->get())) {
 
                 if(!((!p) || L != nullptr)) continue;
@@ -417,12 +456,11 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
 
 
                     Instruction * phi = nullptr;
-                    if(j && depthFirstSearch(j,LI,phi, Instrz)) {
+                    if(depthFirstSearch(j,LI,phi, Instrz, Loads, Phis, Insts)) {
                         if(Phi) {
                             if(Phi == phi) {
                                 //add this
-                                for(auto q : Instrz) roundInsts.push_back(q);
-                                gotPhi.insert(j);
+                                for(auto q : Instrz) roundInsts.insert (q);
                                 found = true; //should have been before anyway
                             } else {
                                 //check which is older.
@@ -432,19 +470,16 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                                 } else if (LI.getLoopFor(phi->getParent())->isLoopInvariant(Phi)) {
                                     dbgs() << "switching phis\n";
                                     roundInsts.clear();
-                                    for(auto q : Instrz) roundInsts.push_back(q);
+                                    for(auto q : Instrz) roundInsts.insert (q);
                                     Phi = phi;
-                                    gotPhi.clear();
-                                    gotPhi.insert(j);
                                     found = true;
                                 } else {
                                     assert(0);
                                 }
                             }
                         } else {
-                            for(auto q : Instrz) roundInsts.push_back(q);
+                            for(auto q : Instrz) roundInsts.insert (q);
                             Phi = phi;
-                            gotPhi.insert(j);
                             found = true;
                         }
                     }
@@ -484,7 +519,7 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                         SmallVector<Instruction*,8> Instrz;
                         Instrz.push_back(i);
                         Instruction * phi = nullptr;
-                        if(depthFirstSearch(i,LI,phi,Instrz)) {
+                        if(depthFirstSearch(i,LI,phi,Instrz,  Loads, Phis, Insts)) {
 
                             int loads = 0;
                             for(auto &z : Instrz) {
