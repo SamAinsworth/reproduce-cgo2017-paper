@@ -1,0 +1,268 @@
+--- SwPrefetchPass.cc.orig	2021-06-08 21:36:38.019700980 +0200
++++ SwPrefetchPass.cc.llvm10	2021-06-08 21:36:55.707955256 +0200
+@@ -24,6 +24,7 @@
+ #include <map>
+ 
+ #include <llvm/Support/Debug.h>
++#define DEBUG_TYPE "SwPrefetchPass"
+ 
+ #ifdef NO_STRIDES
+ #define C_CONSTANT (32)
+@@ -52,7 +53,7 @@
+   SwPrefetchPass() : FunctionPass(ID) {}
+ 
+   /// Return the name of the pass, for debugging.
+-  const char *getPassName() const override {
++  StringRef getPassName() const override {
+     return "Indirect Software Prefetch";
+   }
+ 
+@@ -178,40 +179,42 @@
+ 
+   Value *getArrayOrAllocSize(LoadInst *l) const {
+ 
+-    dbgs() << "attempting to get size of base array:\n";
++    LLVM_DEBUG(dbgs() << "attempting to get size of base array:\n");
+ 
+-    l->getPointerOperand()->print(dbgs());
++    LLVM_DEBUG(l->getPointerOperand()->print(dbgs()));
+ 
+     GetElementPtrInst *gep =
+         dyn_cast<GetElementPtrInst>(l->getPointerOperand());
+ 
+     if (!gep) {
+-      dbgs() << "Couldn't find gep \n";
++      LLVM_DEBUG(dbgs() << "Couldn't find gep \n");
+       return NULL;
+     }
+ 
+-    dbgs() << " with ptr: ";
+-    gep->getPointerOperand()->print(dbgs());
++    LLVM_DEBUG(dbgs() << " with ptr: ");
++    LLVM_DEBUG(gep->getPointerOperand()->print(dbgs()));
+ 
+     auto ArrayStart = gep->getPointerOperand();
+ 
+     if (ArrayType *at = dyn_cast<ArrayType>(gep->getSourceElementType())) {
+-      dbgs() << " and size: ";
+-      dbgs() << std::to_string(at->getNumElements());
++      LLVM_DEBUG(dbgs() << " and size: ");
++      LLVM_DEBUG(dbgs() << std::to_string(at->getNumElements()));
+       int size = at->getNumElements();
+-      dbgs() << "and type: " << *(at->getElementType());
++      LLVM_DEBUG(dbgs() << "and type: " << *(at->getElementType()));
+       // auto ArrayType = at->getElementType ();
+ 
+       return ConstantInt::get(Type::getInt64Ty(M->getContext()), size);
+ 
+     } else if (AllocaInst *ai = dyn_cast<AllocaInst>(ArrayStart)) {
+-      dbgs() << "and dynamic allocated size " << *(ai->getArraySize());
+-      dbgs() << *(ai->getArraySize());
++      LLVM_DEBUG(dbgs() << "and dynamic allocated size "
++                        << *(ai->getArraySize()));
++      LLVM_DEBUG(dbgs() << *(ai->getArraySize()));
+       // dbgs() << *(gep->getSourceElementType ());
+       // SequentialType* pt = dyn_cast<SequentialType>(gep->getSourceElementType
+       // ());
+-      dbgs() << "and type: ";
+-      dbgs() << *(gep->getSourceElementType()); //*(pt->getElementType ());
++      LLVM_DEBUG(dbgs() << "and type: ");
++      LLVM_DEBUG(
++          dbgs() << *(gep->getSourceElementType())); //*(pt->getElementType ());
+       // p->ArrayType = (gep->getSourceElementType ());
+ 
+       //  ConstantInt::get(Type::getInt64Ty(Mod.getContext()),0),
+@@ -250,8 +253,8 @@
+           makeLoopInvariantPredecessor(CI->getOperand(1), Changed, L))
+         return CI->getOperand(0);
+ 
+-      dbgs() << "Size not loop invariant!" << *(CI->getOperand(0))
+-             << *(CI->getOperand(1)) << "\n";
++      LLVM_DEBUG(dbgs() << "Size not loop invariant!" << *(CI->getOperand(0))
++                        << *(CI->getOperand(1)) << "\n");
+ 
+       // return nullptr;
+     }
+@@ -444,7 +447,7 @@
+           (p == getCanonicalishInductionVariable(L) ||
+            p == getWeirdCanonicalishInductionVariable(L))) {
+ 
+-        dbgs() << "Loop induction phi node! " << *p << "\n";
++        LLVM_DEBUG(dbgs() << "Loop induction phi node! " << *p << "\n");
+ 
+         if (Phi) {
+           if (Phi == p) {
+@@ -456,9 +459,9 @@
+             // check which is older.
+             if (LI.getLoopFor(Phi->getParent())->isLoopInvariant(p)) {
+               // do nothing
+-              dbgs() << "not switching phis\n";
++              LLVM_DEBUG(dbgs() << "not switching phis\n");
+             } else if (LI.getLoopFor(p->getParent())->isLoopInvariant(Phi)) {
+-              dbgs() << "switching phis\n";
++              LLVM_DEBUG(dbgs() << "switching phis\n");
+               roundInsts.clear();
+               roundInsts.insert(p);
+               Phi = p;
+@@ -477,7 +480,8 @@
+ 
+       } else if (dyn_cast<StoreInst>(v->get())) {
+       } else if (dyn_cast<CallInst>(v->get())) {
+-      } else if (dyn_cast<TerminatorInst>(v->get())) {
++      } else if (dyn_cast<Instruction>(v->get()) &&
++                 dyn_cast<Instruction>(v->get())->isTerminator()) {
+       } else if (LoadInst *linst = dyn_cast<LoadInst>(v->get())) {
+         // Cache results
+ 
+@@ -506,10 +510,10 @@
+               // check which is older.
+               if (LI.getLoopFor(Phi->getParent())->isLoopInvariant(phi)) {
+                 // do nothing
+-                dbgs() << "not switching phis\n";
++                LLVM_DEBUG(dbgs() << "not switching phis\n");
+               } else if (LI.getLoopFor(phi->getParent())
+                              ->isLoopInvariant(Phi)) {
+-                dbgs() << "switching phis\n";
++                LLVM_DEBUG(dbgs() << "switching phis\n");
+                 roundInsts.clear();
+                 for (auto q : Insts[lindex]) {
+                   roundInsts.remove(q);
+@@ -545,7 +549,8 @@
+             SmallVector<Instruction *, 8> Instrz;
+ 
+             if (p) {
+-              dbgs() << "Non-loop-induction phi node! " << *p << "\n";
++              LLVM_DEBUG(dbgs()
++                         << "Non-loop-induction phi node! " << *p << "\n");
+               j = nullptr;
+               if (!getOddPhiFirst(L, p)) {
+                 return false;
+@@ -575,10 +580,10 @@
+                   // check which is older.
+                   if (LI.getLoopFor(Phi->getParent())->isLoopInvariant(phi)) {
+                     // do nothing
+-                    dbgs() << "not switching phis\n";
++                    LLVM_DEBUG(dbgs() << "not switching phis\n");
+                   } else if (LI.getLoopFor(phi->getParent())
+                                  ->isLoopInvariant(Phi)) {
+-                    dbgs() << "switching phis\n";
++                    LLVM_DEBUG(dbgs() << "switching phis\n");
+                     roundInsts.clear();
+                     for (auto q : Instrz) {
+                       roundInsts.remove(q);
+@@ -640,9 +645,11 @@
+               }
+ 
+               if (loads < 2) {
+-                dbgs() << "stride\n"; // don't remove the stride cases yet
+-                                      // though. Only remove them once we know
+-                                      // it's not in a sequence with an indirect.
++                LLVM_DEBUG(
++                    dbgs()
++                    << "stride\n"); // don't remove the stride cases yet though.
++                                    // Only remove them once we know it's not in
++                                    // a sequence with an indirect.
+ #ifdef NO_STRIDES
+                 // add a continue in here to avoid generating strided
+                 // prefetches. Make sure to reduce the value of C accordingly!
+@@ -650,11 +657,11 @@
+ #endif
+               }
+ 
+-              dbgs() << "Can prefetch " << *i << " from PhiNode " << *phi
+-                     << "\n";
+-              dbgs() << "need to change \n";
++              LLVM_DEBUG(dbgs() << "Can prefetch " << *i << " from PhiNode "
++                                << *phi << "\n");
++              LLVM_DEBUG(dbgs() << "need to change \n");
+               for (auto &z : Instrz) {
+-                dbgs() << *z << "\n";
++                LLVM_DEBUG(dbgs() << *z << "\n");
+               }
+ 
+               Loads.push_back(i);
+@@ -664,7 +671,7 @@
+               MaxOffsets.push_back(1);
+ 
+             } else {
+-              dbgs() << "Can't prefetch load" << *i << "\n";
++              LLVM_DEBUG(dbgs() << "Can't prefetch load" << *i << "\n");
+             }
+           }
+         }
+@@ -711,7 +718,7 @@
+       }
+ 
+       if (loads < 2 && ignore) {
+-        dbgs() << "Ignoring" << *(Loads[x]) << "\n";
++        LLVM_DEBUG(dbgs() << "Ignoring" << *(Loads[x]) << "\n");
+         continue; // remove strides with no dependent indirects.
+       }
+ 
+@@ -721,7 +728,7 @@
+                             LI.getLoopFor(Phis[x]->getParent()));
+ 
+       if (tryToPushDown)
+-        dbgs() << "Trying to push down!\n";
++        LLVM_DEBUG(dbgs() << "Trying to push down!\n");
+ 
+       // reverse list.
+       SmallVector<Instruction *, 8> newInsts;
+@@ -787,7 +794,11 @@
+             size = getArrayOrAllocSize(firstLoad);
+           }
+           assert(size);
+-          assert(size->getType()->isIntegerTy() || IGNORE_SIZE);
++          std::string type_str;
++          llvm::raw_string_ostream rso(type_str);
++          size->getType()->print(rso);
++          rso.flush();
++          /* assert(size->getType()->isIntegerTy() || IGNORE_SIZE); */
+           if (loads < 2 || !size || !size->getType()->isIntegerTy() ||
+               IGNORE_SIZE) {
+             Transforms.insert(std::pair<Instruction *, Instruction *>(z, n));
+@@ -858,11 +869,6 @@
+           Transforms.insert(std::pair<Instruction *, Instruction *>(z, mod));
+           modified = true;
+         } else if (z == Loads[x]) {
+-
+-          Function *fun =
+-              Intrinsic::getDeclaration(F.getParent(), Intrinsic::prefetch);
+-
+-          assert(fun);
+           assert(Loads[x]->getOperand(0));
+ 
+           Instruction *oldGep = dyn_cast<Instruction>(Loads[x]->getOperand(0));
+@@ -890,13 +896,19 @@
+               cast, ConstantInt::get(Type::getInt32Ty(M->getContext()), 0),
+               ConstantInt::get(Type::getInt32Ty(M->getContext()), 3),
+               ConstantInt::get(Type::getInt32Ty(M->getContext()), 1)};
++          ArrayRef<Type *> art = {Type::getInt8PtrTy(M->getContext())};
++          Function *fun =
++              Intrinsic::getDeclaration(M, Intrinsic::prefetch, art);
++
++          assert(fun);
+ 
+           CallInst *call = CallInst::Create(fun, ar);
+ 
+           call->insertBefore(cast->getParent()->getTerminator());
+ 
+         } else if (PHINode *pn = dyn_cast<PHINode>(z)) {
+-          z Value *v = getOddPhiFirst(LI.getLoopFor(pn->getParent()), pn);
++
++          Value *v = getOddPhiFirst(LI.getLoopFor(pn->getParent()), pn);
+           // assert(v);
+           if (v) {
+             if (Instruction *ins = dyn_cast<Instruction>(v))
+@@ -930,9 +942,9 @@
+ 
+             makeLoopInvariantSpec(n, changed, LI.getLoopFor(n->getParent()));
+             if (changed)
+-              dbgs() << "moved loop" << *n << "\n";
++              LLVM_DEBUG(dbgs() << "moved loop" << *n << "\n");
+             else
+-              dbgs() << "not moved loop" << *n << "\n";
++              LLVM_DEBUG(dbgs() << "not moved loop" << *n << "\n");
+           }
+ 
+           Transforms.insert(std::pair<Instruction *, Instruction *>(z, n));
