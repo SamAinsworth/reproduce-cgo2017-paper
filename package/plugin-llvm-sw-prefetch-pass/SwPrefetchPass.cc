@@ -532,10 +532,6 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
 
                             if(loads < 2) {
                                 dbgs()<<"stride\n";    //don't remove the stride cases yet though. Only remove them once we know it's not in a sequence with an indirect.
-#ifdef NO_STRIDES
-                                //add a continue in here to avoid generating strided prefetches. Make sure to reduce the value of C accordingly!
-                                continue;
-#endif
                             }
 
                             dbgs() << "Can prefetch " << *i << " from PhiNode " << *phi << "\n";
@@ -565,6 +561,21 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
         for(uint64_t x=0; x<Loads.size(); x++) {
             ValueMap<Instruction*, Value*> Transforms;
 
+            int loads = 0;
+
+            for(auto &z : Insts[x]) {
+                if(dyn_cast<LoadInst>(z)) {
+                    loads++;
+                }
+            }
+
+#ifdef NO_STRIDES
+            if(loads < 2) {
+                dbgs() << "Skipping stride prefetch " << *(Loads[x]) << "\n";
+                continue;
+            }
+#endif
+
             bool ignore = true;
 
             Loop* L = LI.getLoopFor(Phis[x]->getParent());
@@ -582,20 +593,12 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
                 }
             }
 
-            int loads = 0;
-
-            for(auto &z : Insts[x]) {
-                if(dyn_cast<LoadInst>(z)) {
-                    loads++;
-                }
-            }
-
-
+#ifndef NO_STRIDES
             if(loads < 2 && ignore) {
                 dbgs() << "Ignoring" << *(Loads[x]) << "\n";
                 continue; //remove strides with no dependent indirects.
             }
-
+#endif
 
             IRBuilder<> Builder(Loads[x]);
 
