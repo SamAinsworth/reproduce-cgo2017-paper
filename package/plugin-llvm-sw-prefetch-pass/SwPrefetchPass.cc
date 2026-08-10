@@ -563,11 +563,15 @@ struct SwPrefetchPass : FunctionPass, InstVisitor<SwPrefetchPass>
 
             int loads = 0;
 
-            for(auto &z : Insts[x]) {
-                if(dyn_cast<LoadInst>(z)) {
-                    loads++;
-                }
-            }
+
+	    LoadInst* firstLoad = NULL;
+
+	    for(auto &z : Insts[x]) {
+	      if(dyn_cast<LoadInst>(z)) {
+	          if(!firstLoad) firstLoad = dyn_cast<LoadInst>(z);
+	          loads++;
+	      }
+	    }
 
 #ifdef NO_STRIDES
             if(loads < 2) {

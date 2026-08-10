@@ -8,7 +8,9 @@
 #include "llvm/IR/InstVisitor.h"
 #include "llvm/IR/LegacyPassManager.h"
 #include "llvm/IR/ValueMap.h"
-#include "llvm/Transforms/IPO/PassManagerBuilder.h"
+#include "llvm/IR/PassManager.h"
+#include "llvm/Passes/PassBuilder.h"
+#include "llvm/Passes/PassPlugin.h"
 #include "llvm/ADT/SetVector.h"
 #include "llvm/IR/Verifier.h"
 #include "llvm/Analysis/ValueTracking.h"
@@ -698,6 +700,26 @@ namespace {
       for(uint64_t x=0; x<Loads.size(); x++) {
 	ValueMap<Instruction*, Value*> Transforms;
 
+
+	int loads = 0;
+
+	LoadInst* firstLoad = NULL;
+
+	for(auto &z : Insts[x]) {
+	  if(dyn_cast<LoadInst>(z)) {
+	    if(!firstLoad) firstLoad = dyn_cast<LoadInst>(z);
+	    loads++;
+	  }
+	}
+
+#ifdef NO_STRIDES
+            if(loads < 2) {
+                dbgs() << "Skipping stride prefetch " << *(Loads[x]) << "\n";
+                continue;
+            }
+#endif
+
+
 	bool ignore = true;
 
 	Loop* L = LI.getLoopFor(Phis[x]->getParent());
@@ -715,17 +737,6 @@ namespace {
 	  }
 	}
 
-	int loads = 0;
-
-	LoadInst* firstLoad = NULL;
-
-	for(auto &z : Insts[x]) {
-	  if(dyn_cast<LoadInst>(z)) {
-	    if(!firstLoad) firstLoad = dyn_cast<LoadInst>(z);
-	    loads++;
-	  }
-	}
-
 
 	//loads limited to two on second case, to avoid needing to check bound validity on later loads.
 	if((getCanonicalishSizeVariable(L)) == nullptr) {
@@ -734,10 +745,12 @@ namespace {
 
 	}
 
+#ifndef NO_STRIDES
 	if(loads < 2 && ignore) {
 	  LLVM_DEBUG(dbgs() << "Ignoring" << *(Loads[x]) << "\n");
 	  continue; //remove strides with no dependent indirects.
 	}
+#endif
 
 
 	IRBuilder<> Builder(Loads[x]);
